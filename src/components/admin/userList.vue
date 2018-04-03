@@ -12,26 +12,29 @@
             </el-table-column>
             <el-table-column
               prop="icon_url"
-              width="80"
               label="头像" >
               <template slot-scope="scope">
-                <img style="width:40px;height:40px;border-radius:50%;" :src="'http://192.168.17.131:3000/queryImages?img='+scope.row.icon_url">
+                <img style="width:40px;height:40px;border-radius:50%;" :src="base+'/queryImages?img='+scope.row.icon_url">
               </template>
             </el-table-column>
             <el-table-column
               prop="username"
-              label="用户名"
-              width="180">
+              label="用户名">
+            </el-table-column>
+            <el-table-column
+              prop="gender"
+              label="性别">
+              <template  slot-scope="scope">
+                <el-tag type="warning">{{scope.row.gender==0?'男':'女'}}</el-tag>
+              </template>
             </el-table-column>
             <el-table-column
               prop="password"
               label="密码">
             </el-table-column>
-            
             <el-table-column
               label="账号状态"
-              prop="status"
-              width="120">
+              prop="status">
              <template slot-scope="scope">
               <el-switch
                 style="display: block"
@@ -44,8 +47,7 @@
             </el-table-column>
             <el-table-column
               prop="limit"
-              label="标签"
-              width="120">
+              label="标签">
               <template slot-scope="scope">
                 <el-tag
                   :type="scope.row.limit === 1 ? 'danger':scope.row.limit === 2?'primary' : 'success'"
@@ -79,16 +81,19 @@
 
 <script>
     import {mapState,mapActions,mapGetters } from 'vuex'
+    import { base } from '@/api/api'
     export default {
         name: 'userList',
         data() {
           return {
             list:[],
-            page_size:8
+            page_size:8,
+            base:base
           };
         },
         computed:{
-          ...mapState(['userList'])
+          ...mapState(['userList']),
+          ...mapGetters(['changeGender'])
         },
         methods:{
             handleSizeChange(val) {

@@ -11,6 +11,8 @@
                       text-color="#fff"
                       active-text-color="#ffd04b"
                     style="min-height: 100%;" router>
+                <headTop></headTop>
+                    
                     <el-menu-item index="admin"><i class="el-icon-menu"></i>首页</el-menu-item>
                     <el-submenu index="2">
                         <template slot="title"><i class="el-icon-document"></i>数据管理</template>
@@ -56,12 +58,16 @@
 </template>
 
 <script>
+    import headTop from '@/components/headTop'
     export default {
         name: 'Admin',
         computed: {
             defaultActive: function(){
                 return this.$route.path.replace('/', '');
             }
+        },
+        components:{
+            headTop
         },
         methods:{
             handleOpen(key, keyPath) {

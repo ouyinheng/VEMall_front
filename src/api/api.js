@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-let base = 'http://192.168.17.131:3000';
+export const base = 'http://47.93.220.254:7788';
+//export const base = 'http://192.168.17.131:3000';
 
 export const requestLogin = params => {return axios.post(`${base}/subject/login`,params).then(res => res.data);}
 

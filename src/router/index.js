@@ -7,6 +7,7 @@ import Admin from '@/components/admin/admin'
 import home from '@/components/admin/home'
 import userList from '@/components/admin/userList'
 import massList from '@/components/admin/massList'
+import addGoods from '@/components/admin/addGoods'
 
 /*社团管理员*/
 import Home from '@/components/elder/Home'
@@ -45,6 +46,10 @@ export default new Router({
           path: '/massList',
           name: 'massList',
           component: massList
+        },{
+          path: '/addGoods',
+          name: 'addGoods',
+          component: addGoods
         }
       ]
     },{

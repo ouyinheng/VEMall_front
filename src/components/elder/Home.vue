@@ -14,7 +14,7 @@
         </el-col>
         <el-col :span="4" class="userinfo">
           <el-dropdown trigger="hover">
-            <span class="el-dropdown-link userinfo-inner"><img :src="'http://192.168.17.131:3000/queryImages?img='+this.sysUserAvatar" /> {{sysUserName}}</span>
+            <span class="el-dropdown-link userinfo-inner"><img :src="base+'/queryImages?img='+this.sysUserAvatar" /> {{sysUserName}}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>我的消息</el-dropdown-item>
               <el-dropdown-item>设置</el-dropdown-item>
@@ -48,10 +48,12 @@
 
 <script>
 import {mapActions} from 'vuex'
+import { base } from '@/api/api'
 export default {
   name: 'Home',
   data: function (){
     return {
+      base:base,
       active:{
         step1:'',
         step2:'',

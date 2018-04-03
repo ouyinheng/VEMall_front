@@ -1,5 +1,7 @@
-/*export const changeStatus = (state)=>{
+export const changeGender = (state)=>{
+    console.log(state);
     state.userList.forEach((item,index)=>{
-        return state.userList[index].status = (item.status == 1 ? true :false);
+        console.log(item);
+        // return state.userList[index].gender = (item.gender == '0' ? '女' :'男');
     })
-}*/
+}

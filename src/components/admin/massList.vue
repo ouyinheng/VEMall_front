@@ -2,7 +2,7 @@
     <div class="massList">
       <el-col id="myCard" :span="4" v-for="(item, index) in massList" :key="index">
         <el-card :body-style="{ padding: '0px' }">
-          <img :src="'http://192.168.17.131:3000/queryImages?img='+item.icon_url" class="image">
+          <img :src="base+'/queryImages?img='+item.icon_url" class="image">
           <div style="padding: 14px;">
             <span>{{item.name}}</span>
             <div class="bottom clearfix">
@@ -16,11 +16,13 @@
 
 <script>
     import { mapState,mapActions } from 'vuex'
+    import { base } from '@/api/api'
     export default {
         name: 'massList', 
         data() {
             return {
-              currentDate: new Date()
+              currentDate: new Date(),
+              base:base
             };
         },
         computed:{

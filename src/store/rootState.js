@@ -3,6 +3,7 @@ const state = {
     limit:'',
     user:{
         username:'oyh',
+        gender:'0',
         password:'123456',
         limit:2,
         status:1,
