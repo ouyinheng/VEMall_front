@@ -63,7 +63,13 @@ export default {
       sysUserAvatar:'./static/images/taylor.jpg',
       sysUserName:'123'
     }
-  }, 
+  },
+  beforeCreate(){
+      var user = sessionStorage.getItem('user');
+      if(user == null){
+          this.$router.push('/404');
+      }
+  },
   created: function(){
     this.$router.push('/Public');
   },

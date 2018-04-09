@@ -8,6 +8,7 @@ export const toLogin = (state,data) => {
         icon_url:data.data.icon_url
     }
 }
-export const toLogout = (state,data) => { state.bool = data.bool; };//登出
+export const toLogout = (state,data) => { state.bool = data.bool;state.disabled = true; };//登出
+export const isLogin = (state,data) => { state.disabled = false; };//验证码
 export const getAllUser = (state,data) => { state.userList = data; };//得到所有用户
 export const getAllMass = (state,data) => { state.massList = data; };//得到所有社团

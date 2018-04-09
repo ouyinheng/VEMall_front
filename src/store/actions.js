@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
-import {requestLogin,requestAllUser,requestAllMass} from '../api/api'
+import {requestLogin,requestAllUser,requestAllMass,toVerify} from '../api/api'
 
 //登录
 export const toLogin = (context,data) => {
     return new Promise((resolve,reject)=>{
         requestLogin(data).then(data=>{
             context.commit('toLogin',data);
+            console.log(data);
             resolve('请求成功');
         }).catch(error=>{
             reject(error);
@@ -14,6 +15,8 @@ export const toLogin = (context,data) => {
         })
     })
 };
+//验证码
+export const isLogin = (context)=> {context.commit('isLogin')};
 // 登出
 export const toLogout = (context )=> {context.commit('toLogout',{bool:false})};
 

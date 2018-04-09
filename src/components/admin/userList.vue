@@ -1,11 +1,11 @@
 <template>
     <div class="userList">
-        <el-card class="box-card">
+        <el-card class="box-card" style="padding:0;margin:0;">
             <el-table
             :data="list"
             align="center"
             header-align="center"
-            style="width: 100%">
+            style="width: 100%;padding:0;margin:0;">
            <el-table-column
               type="index"
               :index="indexMethod">
@@ -137,5 +137,15 @@
 </script>
 
 <style scoped>
-    
+    .box-card {
+      margin: 0;
+    }
+    .text {
+      font-size: 14px;
+    }
+
+    .item {
+      padding: 18px 0;
+    }
+
 </style>

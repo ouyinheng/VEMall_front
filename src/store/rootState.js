@@ -1,13 +1,14 @@
 const state = {
+    disabled:true,
     bool:false,
     limit:'',
     user:{
-        username:'oyh',
-        gender:'0',
-        password:'123456',
-        limit:2,
-        status:1,
-        icon_url:'./static/images/taylor.jpg'
+        username:'',
+        gender:'',
+        password:'',
+        limit:'',
+        status:'',
+        icon_url:''
     },
     ruleForm2: {
         account: 'admin',
