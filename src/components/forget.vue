@@ -10,7 +10,8 @@
 		name: 'forget',
 		data(){
 			return {
-				mail:'ouyinheng@163.com'
+				mail: 'ouyinheng@163.com'
+				// mail:'li_jkang@yeah.net'
 				// mail:'851034271@qq.com'
 			}
 		},

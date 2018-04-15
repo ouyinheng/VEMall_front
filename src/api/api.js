@@ -11,7 +11,9 @@ export const toVerify = () => {return axios.get(`${base}/gt/register1?t=` + (new
 export const toFindPwd = params => {return axios.post(`${base}/admin/findPwd`,params).then(res => res.data);}
 //所有用户
 export const requestAllUser = () => {return axios.post(`${base}/admin/findAll`).then(res => res.data);}
-
+//对用户的操作
+export const editUser = params => {return axios.post(`${base}/admin/editUser`,params).then(res => res.data)}
+export const delUser = params => {return axios.post(`${base}/admin/delUser`,params).then(res => res.data)}
 //图片
 export const requestImages = () => {return axios.get(`${base}/admin/queryImages`).then(res => res.data);}
 

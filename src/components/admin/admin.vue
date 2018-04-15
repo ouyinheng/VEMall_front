@@ -1,7 +1,7 @@
 <template>
     <div class="manage_page fillcontain">
         <el-container>
-          <el-aside width="200px">
+          <el-aside width="200px" id="aside">
               <el-menu 
                   :default-active="defaultActive" 
                   class="el-menu-vertical-demo"
@@ -89,8 +89,8 @@
         data(){
             return {
                 base:base,
-                sysUserAvatar:'./static/images/taylor.jpg',
-                sysUserName:'123'
+                sysUserAvatar:'',
+                sysUserName:''
             }
         },
         computed: {
@@ -100,10 +100,10 @@
         },
         beforeCreate:function(){
             //非法登录重定向
-            var user = sessionStorage.getItem('user');
+            /*var user = sessionStorage.getItem('user');
             if(user == null){
                 this.$router.push('/404');
-            }
+            }*/
         },
         mounted() {
             var user = sessionStorage.getItem('user');
@@ -150,14 +150,14 @@
 </script>
 
 <style scoped>
-    .el-aside {
-        width: 200px!important;
-        position: absolute!important;
-        top: 0!important;
-        bottom: 0!important;
-        left: 0!important;
+    #aside {
+        width: 200px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
         z-index: 10;
-        /*background: rgb(50, 65, 87);*/
+        background: rgb(50, 65, 87);
     }
     .right {
         width: 100%;

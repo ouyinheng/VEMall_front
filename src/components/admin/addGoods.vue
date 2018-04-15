@@ -1,7 +1,7 @@
 <template>
     <div class='addGoods'>
         <div>
-            <el-card class="box-card">
+            <el-card class="box-card" v-if="isShow">
               <div slot="header" class="clearfix">
                 <span>添加商品</span>
               </div>
@@ -56,6 +56,7 @@
                   </el-form-item>
                 </el-form>
             </el-card>
+
         </div>
     </div>
 </template>
@@ -73,6 +74,7 @@
                 dialogImageUrl: '',
                 dialogVisible: false,
                 base:base,
+                isShow:true,//是否显示添加商品页
                 ruleForm: {
                     name: '',    //商品名
                     intro: '',   //简介
@@ -100,8 +102,7 @@
           //得到发货区
             getAddressData(province,city,district){
                 this.ruleForm.region = province+'-'+city+'-'+district;
-                console.log(this.ruleForm.region);
-                this
+                // console.log(this.ruleForm.region);
             },
             uploadSuccess(response, file, fileList) {
                 console.log('上传文件', response)
@@ -116,6 +117,7 @@
                             message: '添加成功',
                             type: 'success'
                           });
+                          this.$refs[formName].resetFields();
                       }).catch()
                   } else {
                     this.$message.error('添加失败');

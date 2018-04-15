@@ -7,7 +7,6 @@ export const toLogin = (context,data) => {
     return new Promise((resolve,reject)=>{
         requestLogin(data).then(data=>{
             context.commit('toLogin',data);
-            console.log(data);
             resolve('请求成功');
         }).catch(error=>{
             reject(error);
@@ -19,7 +18,7 @@ export const toLogin = (context,data) => {
 export const isLogin = (context)=> {context.commit('isLogin')};
 // 登出
 export const toLogout = (context )=> {context.commit('toLogout',{bool:false})};
-
+//查找所有用户
 export const getAllUser = (context) => {
     return new Promise((resolve,reject)=>{
         requestAllUser().then(data=>{

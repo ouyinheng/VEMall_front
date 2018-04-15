@@ -14,7 +14,7 @@ const state = {
         account: 'admin',
         checkPass: '123456',
     },
-    userList:[],
+    userList:{},
     massList:[]
 }
 export default state;

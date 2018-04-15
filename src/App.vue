@@ -13,9 +13,19 @@ export default {
 </script>
 
 <style>
-#app {
+/* #app {
   min-width: 1200px;
   margin: 0 auto;
   font-family: "Helvetica Neue","PingFang SC",Arial,sans-serif;
+} */
+* {
+  padding: 0;
+  margin: 0;
+}
+li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
 }
 </style>

@@ -18,6 +18,8 @@
         </div>
       </el-form-item>
       <el-checkbox id="checkbox" v-model="checked" checked class="remember">记住密码</el-checkbox>
+      <el-button id="btn1" type="text" @click="toReg">注册MALL账号</el-button>
+      <el-button type="text" @click='toForget'>忘记密码?</el-button>
       <el-form-item style="width:100%;">
         <el-button :disabled="disabled" type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="logining">登录</el-button>
       </el-form-item>
@@ -28,7 +30,7 @@
 <script>
 import $ from 'jquery'
 import {mapState,mapActions} from 'vuex'
-import gt from '../assets/js/gt.js'
+import gt from '@/assets/js/gt.js'
 import { toVerify } from '@/api/api'
 export default {
   name: 'Login',
@@ -80,6 +82,13 @@ export default {
           captchaObj.onSuccess(function () {
               _this.isLogin();
           })
+      },
+      //找回密码
+      toForget(){
+        this.$router.push('forget');
+      },
+      toReg(){
+      	this.$router.push('register');
       },
       handleReset2() {
         
@@ -153,7 +162,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("../../static/images/post-bg-debug.png");
+    background-image: url("../../../static/images/post-bg-debug.png");
     background-size: cover;
 }
 #video {

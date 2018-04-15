@@ -1,6 +1,7 @@
 <template>
     <div class="userList">
-        <el-card class="box-card" style="padding:0;margin:0;">
+       <transition name="el-zoom-in-top">
+        <el-card class="user-card" style="padding:0;margin:0;" v-if="isShow">
             <el-table
             :data="list"
             align="center"
@@ -72,23 +73,55 @@
                   @current-change="handleCurrentChange"
                   :page-size="page_size"
                   layout="prev, pager, next, jumper"
-                  :total="userList.length">
+                  :total="total"
+                  >
+                  <!-- :total="userList.length" -->
                 </el-pagination>
             </div>
+        </el-card>
+      </transition>
+        <el-card class="user-card" v-if="!isShow">
+            <div slot="header" class="clearfix">
+              <span>修改信息</span>
+            </div>
+            <el-form ref="form" :model="form" label-width="80px">
+              <el-form-item label="用户名">
+                <el-input v-model="form.username"></el-input>
+              </el-form-item>
+             <el-form-item label="密码">
+                <el-input v-model="form.password"></el-input>
+              </el-form-item>
+              <el-form-item label="账号状态">
+                <el-switch v-model="form.status"></el-switch>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">立即提交</el-button>
+                <el-button @click="toBack">取消</el-button>
+              </el-form-item>
+            </el-form>
         </el-card>
     </div>
 </template>
 
 <script>
     import {mapState,mapActions,mapGetters } from 'vuex'
-    import { base } from '@/api/api'
+    import { base, editUser,delUser } from '@/api/api'
     export default {
         name: 'userList',
         data() {
           return {
             list:[],
             page_size:8,
-            base:base
+            base:base,
+            isShow:true,
+            form: {
+                username:'',
+                password:'',
+                status:'',
+                icon_url:'',
+                id:0             
+            },
+            total:0
           };
         },
         computed:{
@@ -96,6 +129,29 @@
           ...mapGetters(['changeGender'])
         },
         methods:{
+            updateUserInfo(){
+                const _this = this;
+                this.getAllUser().then(data=>{
+                    _this.list = _this.userList;
+                    _this.limitList(_this.userList,0);
+                    _this.total = _this.userList.length;
+                })
+            },
+            toEdit(info){
+                const _this = this;
+                editUser(info).then(data=>{
+                    this.$message({
+                      type: 'success',
+                      message: '修改成功!',
+                    });
+                    _this.updateUserInfo();
+                }).catch(error=>{
+                    this.$message({
+                        type: 'error',
+                        message: '修改失败!'
+                    });
+                })
+            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
@@ -106,11 +162,42 @@
                 }
                 console.log(`当前页: ${val}`);
             },
+            //修改用户信息
             handleEdit(index, row) {
-                console.log(index, row);
+                this.form = {
+                    username:row.username,
+                    password:row.password,
+                    status:row.status,
+                    id:row.id
+                }
+                this.isShow = !this.isShow;
             },
             handleDelete(index, row) {
-                console.log(index, row);
+                const _this = this;
+                var tip = '此操作将永久删除用户信息, 是否继续?';
+                this.$confirm(tip, '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                    delUser({id:row.id}).then(data=>{
+                        this.$message({
+                          type: 'success',
+                          message: '删除成功!',
+                        });
+                        _this.updateUserInfo();
+                    }).catch(error=>{
+                        this.$message({
+                          type: 'error',
+                          message: '删除失败!'
+                        });
+                    })
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                  });          
+                });
             },
             limitList(data,page){
                 var start = page * 8;
@@ -120,24 +207,69 @@
             indexMethod(index) {
                 return index +1 ;
             },
-            handleChange(index,data){
-              console.log(index,data);
+            handleChange(index,row){
+                const _this = this;
+                this.form = {
+                    username:row.username,
+                    password:row.password,
+                    status:row.status==true?1:0,
+                    id:row.id
+                }
+                this.$confirm('此操作将x修改用户信息, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    _this.toEdit(_this.form);
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消修改'
+                    });          
+                });
+            },
+            onSubmit() {
+                const _this = this;
+                this.$confirm('此操作将x修改用户信息, 是否继续?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                    editUser(_this.form).then(data=>{
+                        this.$message({
+                          type: 'success',
+                          message: '修改成功!',
+                        });
+                        _this.updateUserInfo();
+                        _this.isShow = !_this.isShow;
+                    }).catch(error=>{
+                        this.$message({
+                            type: 'error',
+                            message: '修改失败!'
+                        });
+                    })
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消修改'
+                  });          
+                });
+            },
+            toBack(){
+                this.isShow = !this.isShow;
             },
             ...mapActions([
               'getAllUser'
             ])
         },
         created(){
-            var _this = this;
-            this.getAllUser().then(data=>{
-                _this.limitList(_this.userList,0);
-            })
+            this.updateUserInfo();
         }
     }
 </script>
 
 <style scoped>
-    .box-card {
+    .user-card {
       margin: 0;
     }
     .text {
