@@ -100,7 +100,8 @@ export default {
                 _this.logining = true;
                 // console.log(loginParams);
                 _this.toLogin(loginParams).then(data=>{
-                  if(_this.bool){
+                  console.log(_this.user,'---');
+                  if(data){
                       _this.$notify({
                           title: '成功',
                           message: '登录成功！',

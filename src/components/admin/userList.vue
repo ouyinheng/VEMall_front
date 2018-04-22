@@ -42,6 +42,7 @@
                 v-model="scope.row.status"
                 active-color="#13ce66"
                 inactive-color="#ff4949"
+                :disabled="true"
                 @change="handleChange(scope.$index, scope.row)">
               </el-switch>
             </template>
@@ -222,6 +223,7 @@
                 }).then(() => {
                     _this.toEdit(_this.form);
                 }).catch(() => {
+                    _this.list.status = !_this.list.status;
                     this.$message({
                         type: 'info',
                         message: '已取消修改'

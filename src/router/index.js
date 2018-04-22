@@ -4,18 +4,36 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import error from '@/components/404'
 import forget from '@/components/forget'
-/*体统管理员*/
+/*系统管理员*/
 import Admin from '@/components/admin/admin'
+//首页
 import home from '@/components/admin/home'
+
+//商城管理
+import hotGoods from '@/components/admin/hotGoods'
+import handpick from '@/components/admin/handpick'
+//数据管理
 import userList from '@/components/admin/userList'
 import massList from '@/components/admin/massList'
+import pictureList from '@/components/admin/pictureList'
+
+//添加数据
 import addGoods from '@/components/admin/addGoods'
 import addshop from '@/components/admin/addshop'
+
+//图表
 import visitor from '@/components/admin/visitor'
-//用户
+
+//设置
+
+//系统管理
+
+/*用户*/
 import userLogin from '@/components/user/login'
 import register from '@/components/user/register'
 import Show from '@/components/user/show'
+import myDetails from '@/components/user/myDetails'//个人信息
+import myOrder from '@/components/user/myOrder'//个人信息
 /*普通用户*/
 import Home from '@/components/elder/Home'
 import Test from '@/components/elder/test'
@@ -68,6 +86,14 @@ export default new Router({
           name: 'home',
           component: home,
         },{
+          path:'/hotGoods',
+          name: 'hotGoods',
+          component: hotGoods
+        },{
+          path:'/handpick',
+          name: 'handpick',
+          component: handpick
+        },{
           path: '/userList',
           name: 'userList',
           component: userList
@@ -75,6 +101,10 @@ export default new Router({
           path: '/massList',
           name: 'massList',
           component: massList
+        },{
+          path: '/pictureList',
+          name: 'pictureList',
+          component: pictureList
         },{
           path: '/addGoods',
           name: 'addGoods',
@@ -89,6 +119,17 @@ export default new Router({
           component: visitor
         }
       ]
+    },{
+      //用户信息界面
+      path: '/myDetails',
+      name: 'myDetails',
+      component: myDetails,
+      meta:{requireAuth:true},
+      children:[{
+        path: '/myOrder',
+        name: 'myOrder',
+        component: myOrder,
+      }]
     },{
       path: '/home',
       name: 'Home',

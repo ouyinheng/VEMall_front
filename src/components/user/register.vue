@@ -14,7 +14,7 @@
 		      </el-form-item>
 		      <el-form-item c
 		      <el-form-item class="userMail">
-		      	<el-input type="text" v-model="user.emailAuth" auto-complete="off" placeholder="邮箱验证码"></el-input>
+		      	<el-input type="text" v-model="user.emailAuth" auto-complete="off" placeholder="邮箱验证码" @blur="regMail"></el-input>
 				<o_countDown class="userCountDown" @getAuthCode="getAuthCode"></o_countDown>
 		      </el-form-item>
 		      <el-form-item>
@@ -25,7 +25,7 @@
 		        </div>
 		      </el-form-item>
 		      <el-form-item style="width:100%;">
-		        <el-button :disabled="disabled" type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="logining">登录</el-button>
+		        <el-button :disabled="disabled" type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="logining">注册</el-button>
 		      </el-form-item>
 		    </el-form>
 		</div>
@@ -34,7 +34,7 @@
 
 <script>
 	import gt from '@/assets/js/gt.js'
-	import { toVerify } from '@/api/api'
+	import { toVerify,toVerifyMailNum ,toReg} from '@/api/api'
 	import o_countDown from '@/components/user/countDown'
 	import { toFindPwd } from '@/api/api'
 	export default {
@@ -45,6 +45,8 @@
 				logining:false,
 				isShow:true,
 				emailDis:false,
+				ver:false,
+				regm:false,
 				user:{
 					username:'',
 					password:'',
@@ -71,7 +73,6 @@
 	                challenge: data.challenge,
 	                offline: !data.success, // 表示用户后台检测极验服务器是否宕机
 	                new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
-
 	                product: "popup", // 产品形式，包括：float，popup
 	                width: "300px"
 	            },_this.verify);
@@ -90,7 +91,10 @@
 	          });
 	          captchaObj.onSuccess(function () {
 	              // _this.isLogin();
-	              _this.disabled = false;
+	              	_this.ver = true;
+	              	if(_this.regm&&_this.ver){
+	      				_this.disabled = false;
+	      		 	}
 	          })
 	      },
 	      getAuthCode(){
@@ -102,6 +106,36 @@
 				}).catch(error=>{
 					
 				});
+	      },
+	      regMail(){
+	      	const _this = this;
+	      	let param = {
+	      		email:_this.user.email,
+	      		emailAuth:_this.user.emailAuth
+	      	}
+	      	//输入框失去焦点后，得到邮箱的值
+	      	toVerifyMailNum(param).then(data=>{
+	      		if(data){
+	      			_this.regm = true;
+	      			if(_this.regm&&_this.ver){
+	      				_this.disabled = false;
+	      			}
+	      		}
+	      	}).catch()
+	      },
+	      handleSubmit(){
+	      	//	注册
+	      	const _this = this;
+	      	toReg(_this.user).then(data=>{
+	      		if(data){
+	      			this.$message({
+			          showClose: true,
+			          message: '恭喜你，注册成功!',
+			          type: 'success'
+			        });
+			        this.$router.push('/login');
+	      		}
+	      	}).catch();
 	      }
 		}	
 	}
