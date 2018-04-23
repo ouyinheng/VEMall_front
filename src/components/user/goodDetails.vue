@@ -73,7 +73,6 @@
 		created(){
 			this.goodDetails = JSON.parse(sessionStorage.getItem('goodDetails'));
 			this.maxImg=this.goodDetails.picture[0]
-			$('.minImg').addClass('imgBorder');
 		}
 	}
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<div class="headTop">
   		<div class="left">
-  			<span>占位符</span>
+  			<span @click="toHome" class="home">首页</span>
   		</div>
   		<div class="right">
 			<div class="search">
@@ -19,7 +19,7 @@
             </el-dropdown>
 			<span class="iconfont icon-account" @click="toPopup" v-else></span>
 
-			<el-badge :value="treasure.length" class="item cart">
+			<el-badge :value="treasure==null?0:treasure.length" class="item cart">
 			  	<span class="iconfont icon-cart"  v-popover:popover1></span>
 			</el-badge>
 			<el-popover
@@ -30,6 +30,7 @@
 			  trigger="hover"
 			  content="哎呀，您的购物车竟然是空的！">
 			   	<!-- {{treasure}} -->
+			   	<div v-if="treasure != null">
 			   		<el-checkbox-group v-model="checkedGoods"  class="goodsList">
 					    <el-checkbox v-for="(item,index) in treasure"  :label="item" :key="index">
 					    	<div class="left">
@@ -48,6 +49,7 @@
 					   	</div>
 					   <el-button type="danger" :disabled="allPrice==0?true:false" @click="toPayment">结算</el-button>
 					</div>
+			   	</div>
 			</el-popover>
   		</div>
 	</div>
@@ -63,6 +65,7 @@
 		        min:'78_78',
 				mid:'428_428',
 				max:'800_800',
+				num:0,
 				checkedGoods:[],
 				// allPrice:0
 			}
@@ -77,6 +80,9 @@
 			}
 		},
 		methods:{
+			toHome(){
+				this.$router.push('/');
+			},
 		    toPopup(){
 		    	this.$emit('toPopup')
 		    },
@@ -95,6 +101,9 @@
 		},
 		created(){
 			// console.log(this.treasure,this.user);
+			if(this.treasure != null){
+				this.num = this.treasure.length;
+			}
 		},
 		props:['user','bool','treasure']
 	}
@@ -113,6 +122,14 @@
 	}
 	.headTop .left {
 		width: 55%;
+	}
+	.headTop .left .home {
+		cursor: pointer;
+		height: 80px;
+		line-height: 80px;
+	}
+	.headTop .left .home:hover {
+		color: skyblue;
 	}
 	.headTop .left span {
 		color: #fff;

@@ -11,6 +11,12 @@ export const toVerify = () => {return axios.get(`${base}/gt/register1?t=` + (new
 export const toVerifyMailNum = params => {return axios.post(`${base}/admin/verify`,params).then(res => res.data);}
 // 注册
 export const toReg = params => {return axios.post(`${base}/admin/reg`,params).then(res => res.data);}
+//添加收货地址
+export const addUserInfo = params => {return axios.post(`${base}/admin/addUserInfo`,params).then(res => res.data);}
+//获取收货地址
+export const getUserInfo = params => {return axios.post(`${base}/admin/getUserInfo`,params).then(res => res.data);}
+//修改默认收货地址
+export const editUserInfo = params => {return axios.post(`${base}/admin/editUserInfo`,params).then(res => res.data);}
 //忘记密码
 export const toFindPwd = params => {return axios.post(`${base}/admin/findPwd`,params).then(res => res.data);}
 //所有用户

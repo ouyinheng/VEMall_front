@@ -9,13 +9,10 @@
 		<huawei></huawei>
 		<!-- 品牌精选 -->
 		<handpick @toBuyPage="toBuyPage"></handpick>
-		<!-- 特色 -->
-		<feature></feature>
 	</div>
 </template>
 
 <script>
-	import feature from '@/components/user/feature'
 	import hot from '@/components/user/hot'
 	import huawei from '@/components/user/huawei'
 	import handpick from '@/components/user/handpick'
@@ -44,7 +41,7 @@
 			}
 		},
 		components:{
-			feature,hot,huawei,handpick,goodDetails,order
+			hot,huawei,handpick,goodDetails,order
 		},
 		methods:{
 			toBuyPage(data){

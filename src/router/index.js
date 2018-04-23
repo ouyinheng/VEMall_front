@@ -70,7 +70,7 @@ export default new Router({
         },{
           path: '/order',
           name: 'order',
-          component: order,
+          component: order
         },{
           path: '/allGoods',
           name: 'allGoods',

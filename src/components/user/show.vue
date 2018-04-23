@@ -81,7 +81,9 @@
 		    },
 		    toPayment(data){
 		    	//去支付,订单页
-		    	console.log(data);
+		    	// console.log(data);
+		    	localStorage.setItem('goodsList',JSON.stringify(data));
+		    	this.$router.push('/order');
 		    },
 			onSubmit() {
 				const _this = this;
@@ -170,37 +172,4 @@
 }
 .el-footer {
 }
-/* .contain {
-	width: 100%;
-	position: absolute;
-	top: 60px;
-	left: 0;
-	bottom: 160px;
-} */
-/* .show_head {
-	width: 85%;
-	height: 60px;
-	margin: 0 auto;
-	line-height: 60px;
-	color: #fff;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-.show_head ul {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}
-.show_head ul:nth-of-type(1) {
-	width: 60%;
-	margin-right: 40px;
-}
-.show_head ul:nth-of-type(2) {
-	width: 40%;
-	margin-left: 10px;
-} */
 </style>

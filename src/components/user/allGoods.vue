@@ -46,8 +46,8 @@
 		    	}
 		    	data.picture = picture;
 				sessionStorage.setItem('goodDetails', JSON.stringify(data));
-				window.open(window.location.origin + '/#/goodDetails')
 				this.$router.push('/allGoods')
+				window.open(window.location.origin + '/#/goodDetails')
 		    	// this.$router.push('/goodDetails')
 			},
 			toHigh(){

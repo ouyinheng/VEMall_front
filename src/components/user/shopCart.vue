@@ -2,25 +2,6 @@
 	<div class="order">
 		<section class="orderGoodsList">
 			<header class="title">收货地址</header>
-			<div class="site">
-				<div v-for="(item,index) in userInfo" :key="index" style="cursor:pointer;margin:0 14px 10px 0;" @click="editSite(index)" :class="{twoSite:item.status==1}">
-					<div style="width:290px;height:100px;margin: 30px auto 0;font-size:14px;color: gray;">
-						<span>收货人:&nbsp;&nbsp;&nbsp;{{item.name}}</span></br>
-						<span>收货地址:&nbsp;&nbsp;&nbsp;{{item.site}}</span></br>
-						<span>手机号码:&nbsp;&nbsp;&nbsp;{{item.tel}}</span></br>
-					</div>
-					<span class="el-icon-check status" v-if="item.status == 1"></span>
-				</div>
-				<div style="cursor:pointer;"  @click="dialogFormVisible = true">
-					<div style="width:70px;height:100px;margin: 50px auto 0;font-size:14px;color: gray;text-align:center;">
-						<span class="el-icon-circle-plus" style="font-size:24px;"></span></br>
-						<span style="font-size:14px;">使用新地址</span>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="orderGoodsList">
 			<header class="title">购物清单</header>
 			<el-table
 			    ref="multipleTable"
@@ -94,46 +75,19 @@
 			  	</div>
 			</div>
 		</section>
-		<el-dialog title="收货地址" :visible.sync="dialogFormVisible" style="width: 1200px;margin: 0 auto;">
-		  <el-form :model="form">
-		    <el-form-item label="收货人" :label-width="formLabelWidth">
-		      <el-input v-model="form.name" auto-complete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="收货地址" :label-width="formLabelWidth">
-		      <el-input v-model="form.site" auto-complete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="手机号码" :label-width="formLabelWidth">
-		      <el-input v-model="form.tel" auto-complete="off"></el-input>
-		    </el-form-item>
-		  </el-form>
-		  <div slot="footer" class="dialog-footer">
-		    <el-button @click="dialogFormVisible = false">取 消</el-button>
-		    <el-button type="primary" @click="submit">确 定</el-button>
-		  </div>
-		</el-dialog>
+		
 	</div>
 </template>
 
 <script>
-	import $ from 'jquery'
-	import { base,addUserInfo,getUserInfo,editUserInfo } from '@/api/api'
+	import { base } from '@/api/api'
 	export default {
 		name: 'order',
 		data(){
 			return {
 				base:base,
 				goodsList:[],
-			 	multipleSelection: [],
-			 	userInfo:[],
-			 	dialogFormVisible: false,
-		        form: {
-		        	id:'',
-			        name: '',
-			        site:'',
-			        tel:'',
-			        status:0
-		        },
-		        formLabelWidth: '120px'
+			 	multipleSelection: []
 			}
 		},
 		computed:{
@@ -151,49 +105,10 @@
 			},
 			handleSelectionChange(val) {
 		        this.multipleSelection = val;
-		    },
-		    getUserInfo(){
-		    	const _this = this;
-				const data={id:JSON.parse(sessionStorage.getItem('user')).id}
-				getUserInfo(data).then(data=>{
-					_this.userInfo = data;
-				}).catch()
-		    },
-		    editSite(index){
-		    	const _this = this;
-		    	if(this.userInfo[index].status != 1){
-		    		for(let i=0;i<this.userInfo.length;i++){
-		    			if(this.userInfo[i].status == 1){
-		    				editUserInfo({id:_this.userInfo[i].id,status:0}).then().catch()
-		    			}
-		    		}
-		    		editUserInfo({id:_this.userInfo[index].id,status:1}).then(()=>{
-		    			_this.getUserInfo();
-		    		}).catch();
-				}
-		    },
-		    submit(){
-		    	this.dialogFormVisible = false;
-		    	const _this = this;
-		    	this.form.id = JSON.parse(sessionStorage.getItem('user')).id
-		    	addUserInfo(_this.form).then(data=>{
-		    		_this.form = {
-				        	id:'',
-					        name: '',
-					        site:'',
-					        tel:'',
-					        status:0
-				        }
-			        _this.getUserInfo();
-		    	}).catch(error=>{
-		    		console.log(error);
-		    	})
 		    }
 		},
 		created(){
 			this.goodsList = JSON.parse(localStorage.getItem('goodsList'));
-		    this.getUserInfo();
-			
 		}
 	}
 </script>
@@ -222,27 +137,7 @@
 	width: 100%;
 	text-align: left;
 	box-sizing: border-box;
-	padding: 20px 20px;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.orderGoodsList .site .twoSite {
-	border: 1px solid skyblue;
-}
-.orderGoodsList .site .status {
-	position: relative;
-	top: -120px;
-	right: -240px;
-	color: lightgreen;
-	font-size: 30px;
-}
-.orderGoodsList .site>div{
-	width: 300px;
-	height: 150px;
-	/*border: 1px solid lightgreen;*/
-	border: 1px solid #e5e5e5;
-	border-radius: 4px;
+	padding: 20px 50px;
 }
 .orderGoodsList .site>span {
 	font-size: 26px;
