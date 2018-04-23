@@ -7,7 +7,7 @@
 				<img :src="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="400px">
 			</div>
 			<div>
-				<span>{{item.name}}</span></br>
+				<span>{{item.shortname}}</span></br>
 				<span style="font-size:14px;color:gray;">{{item.intro}}</span>
 			</div>
 			<span style="color:red;">￥{{item.price}}</span>

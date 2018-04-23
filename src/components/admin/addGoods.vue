@@ -6,8 +6,11 @@
                 <span>添加商品</span>
               </div>
               <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                  <el-form-item label="商品名称" prop="name">
-                    <el-input v-model="ruleForm.name"></el-input>
+                  <el-form-item label="商品名称" prop="shortname">
+                    <el-input v-model="ruleForm.shortname"></el-input>
+                  </el-form-item>
+                  <el-form-item label="商品全称" prop="longname">
+                    <el-input v-model="ruleForm.longname"></el-input>
                   </el-form-item>
                   <el-form-item label="简介描述" prop="intro">
                     <el-input v-model="ruleForm.intro"></el-input>
@@ -95,21 +98,25 @@
                 fileArr:[],
                 fileList:[],
                 ruleForm: {
-                    name: '',    //商品名
-                    intro: '',   //简介
-                    classify: '',//分类
-                    price: 1,    //价格
-                    num: 0,      //数量
-                    astrict: 0,  //没人限制购买量
-                    region: '',  //发货地区
-                    property: '',//活动性质
-                    details: '', //商品详情
+                    shortname: '',    //商品名称
+                    longname: '', //商品全程
+                    intro: '',    //简介
+                    classify: '', //分类
+                    price: 1,     //价格
+                    num: 0,       //数量
+                    astrict: 0,   //没人限制购买量
+                    region: '',   //发货地区
+                    property: '', //活动性质
+                    details: '',  //商品详情
                     displayImg:'',
-                    picture: []  //商品图片路径
+                    picture: []   //商品图片路径
                 },
                 upParam:{},
                 rules: {
-                    name: [
+                    shortname: [
+                        { required: true, message: '请输入商品名称', trigger: 'blur' }
+                    ],
+                    longname: [
                         { required: true, message: '请输入商品名称', trigger: 'blur' }
                     ],
                     intro:{ required: true, message: '请输入商品简介', trigger: 'blur' },

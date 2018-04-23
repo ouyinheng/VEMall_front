@@ -8,6 +8,7 @@
 				<input type="text" name="search">
 				<span class="el-icon-search"></span>
 			</div>
+			<span class="allGoods" @click="toSeeAllGoods">所有商品</span>
 			<el-dropdown v-if="bool==undefined?false:bool">
                 <img :src="base+'/queryImages?img='+user.icon_url" alt="lost" class="icon">
                 <el-dropdown-menu slot="dropdown">
@@ -32,10 +33,10 @@
 			   		<el-checkbox-group v-model="checkedGoods"  class="goodsList">
 					    <el-checkbox v-for="(item,index) in treasure"  :label="item" :key="index">
 					    	<div class="left">
-					      		<img :src="base+'/queryImages?img=goods/handpick/'+min+item.picture[0]" alt="">
+					      		<img :src="base+'/queryImages?img=goods/allGoods/'+item.displayImg" alt="" width="78px">
 					        </div>
 					        <div class="right" style="width: 250px;">
-					      		<span style="display:block;overflow: hidden; text-overflow:ellipsis; white-space: nowrap; text-align:right;">{{item.name}}</span></br>
+					      		<span style="display:block;overflow: hidden; text-overflow:ellipsis; white-space: nowrap; text-align:right;">{{item.shortname}}</span></br>
 					      		<span style="color: red;display:block;margin-top: 20px;margin-right:10px;">¥{{item.price}}&nbsp;&nbsp;&nbsp;&nbsp;x{{item.goodsNum}}</span>
 					        </div>
 					    </el-checkbox>
@@ -83,10 +84,13 @@
 		    	this.$emit('logout')
 		    },
 		    toPayment(){
-		    	this.$emit("toPayment");
+		    	this.$emit("toPayment",this.checkedGoods);
 		    },
 		    myDetails(){
 		    	this.$router.push('/myDetails');
+		    },
+		    toSeeAllGoods(){
+		    	this.$router.push('/allGoods');
 		    }
 		},
 		created(){
@@ -105,23 +109,34 @@
 		flex-direction: row;
 		justify-content: space-between;
 		font-size: 20px;
+		background: RGB(3,3,3);
 	}
 	.headTop .left {
-		width: 65%;
+		width: 55%;
 	}
 	.headTop .left span {
 		color: #fff;
 	}
 	.headTop .right {
-		width: 35%;
+		width: 45%;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
 	}
+	.headTop .right .allGoods {
+		display: block;
+		width: 80px;
+		height: 80px;
+		line-height: 80px;
+		font-size: 16px;
+		color: #fff;
+		cursor: pointer;
+		margin: 0 10px 0 10px;
+	}
 	.headTop .right>span,.headTop .right .cart {
 		height: 40px;
 		line-height: 40px;
-		margin-top: 15px;
+		margin-top: 20px;
 		font-size: 25px;
 		color: #fff;
 		padding: 0 10px;
@@ -185,7 +200,7 @@
 		width: 280px;
 		height: 36px;
 		line-height: 36px;
-		margin-top: 15px;
+		margin-top: 20px;
 		border: 1px solid gray;
 		border-radius: 20px;
 		background-color: #fff;
@@ -226,7 +241,7 @@
         border-radius:50%;
 
         /*vertical-align:middle;*/
-        margin:15px 5px 0;
+        margin:20px 5px 0;
     }
     .icon:hover,.headTop .right .search span:hover {
         cursor: pointer;

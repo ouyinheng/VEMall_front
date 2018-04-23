@@ -8,7 +8,7 @@
 					<img :src="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="150px">
 				</div>
 				<div style="margin-top: 20px;a">
-					<span>{{item.name}}</span></br>
+					<span>{{item.shortname}}</span></br>
 					<span style="font-size:12px;color:gray;display:block;margin-top:10px;">{{item.intro}}</span>
 				</div>
 				<span style="display:block;color:red;margin-top: 30px;">￥{{item.price}}</span>

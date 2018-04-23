@@ -1,6 +1,5 @@
 <template>
 	<div class="goodDetails">
-		<span @click="back" type="text" class="back">返回</span>
 		<div class="left">
 			<img :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+mid+maxImg" alt="">
 			<div class="minImg">
@@ -9,7 +8,7 @@
 		</div>
 		<div class="right">
 			<header class="title">
-				<span style="font-size: 24px;display:block;margin-top: 10px;">{{goodDetails.name}}</span></br>
+				<span style="font-size: 24px;display:block;margin-top: 10px;">{{goodDetails.longname}}</span></br>
 				<span style="color: gray;font-size: 16px;display:block;margin-top: 40px;">{{goodDetails.details}}</span></br>
 				价格&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;font-size: 18px;">¥{{goodDetails.price}}</span></br>
 				<el-input-number size="mini" v-model="num" style="margin: 50px 0 30px;"></el-input-number></br>
@@ -32,7 +31,9 @@
 				min:'78_78',
 				mid:'428_428',
 				max:'800_800',
-				maxImg:''
+				maxImg:'',
+				goodDetails:'',
+				bool:true
 			}
 		},
 		methods:{
@@ -40,25 +41,40 @@
 				this.maxImg = item;
 				$(event.target).addClass('imgBorder').siblings().removeClass('imgBorder');
 			},
-			back(){
-				this.$emit('back')
-			},
 			addCart(){
 				this.goodDetails.goodsNum = this.num;
-				this.$emit('addCart',this.goodDetails)
+				var goodsArr = JSON.parse(localStorage.getItem('treasure'));
+				if(goodsArr == null){
+					goodsArr = [];
+					goodsArr.push(this.goodDetails);
+				} else {
+					for(let i=0;i<goodsArr.length;i++){
+						if(goodsArr[i].id == this.goodDetails.id){
+							goodsArr[i].goodsNum += this.num;
+							this.bool = false;
+						}
+					}
+					if( this.bool ){
+						goodsArr.push(this.goodDetails)
+					}
+				}
+				localStorage.setItem('treasure', JSON.stringify(goodsArr));
+				this.$emit('addCart',goodsArr)
 			},
 			toPayment(){
 				if(sessionStorage.getItem('user') == null){
 					alert("请登录");
 				} else {
-					this.$emit('toPayment')
+					this.goodDetails.goodsNum = this.num;
+					this.$emit('toPayment',this.goodDetails)
 				}
 			}
 		},
 		created(){
+			this.goodDetails = JSON.parse(sessionStorage.getItem('goodDetails'));
 			this.maxImg=this.goodDetails.picture[0]
-		},
-		props:['goodDetails']
+			$('.minImg').addClass('imgBorder');
+		}
 	}
 </script>
 
@@ -72,13 +88,6 @@
 	display: flex;
 	flex-direction: row;
 	padding: 10px 0;
-}
-.goodDetails .back {
-	width: 50px;
-	position: relative;
-	top: 0px;
-	left: 10px;
-	color: skyblue;
 }
 .goodDetails .back:hover {
 	color: lightblue;

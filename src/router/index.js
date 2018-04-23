@@ -32,6 +32,10 @@ import visitor from '@/components/admin/visitor'
 import userLogin from '@/components/user/login'
 import register from '@/components/user/register'
 import Show from '@/components/user/show'
+import myMain from '@/components/user/myMain'
+import goodDetails from '@/components/user/goodDetails'
+import allGoods from '@/components/user/allGoods'
+import order from '@/components/user/order'
 import myDetails from '@/components/user/myDetails'//个人信息
 import myOrder from '@/components/user/myOrder'//个人信息
 /*普通用户*/
@@ -53,7 +57,26 @@ export default new Router({
     {//此处为商品展示页面
       path: '/',
       name: 'Show',
-      component: Show
+      component: Show,
+      children:[
+        {
+          path: '/',
+          name: 'myMain',
+          component: myMain,
+        },{
+          path: '/goodDetails',
+          name: 'goodDetails',
+          component: goodDetails,
+        },{
+          path: '/order',
+          name: 'order',
+          component: order,
+        },{
+          path: '/allGoods',
+          name: 'allGoods',
+          component: allGoods,
+        }
+      ]
     },{
       path: '/forget',
       name: 'forget',
