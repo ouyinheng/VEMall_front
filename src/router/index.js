@@ -38,6 +38,7 @@ import allGoods from '@/components/user/allGoods'
 import order from '@/components/user/order'
 import myDetails from '@/components/user/myDetails'//个人信息
 import myOrder from '@/components/user/myOrder'//个人信息
+import success from '@/components/user/success'//个人信息
 /*普通用户*/
 import Home from '@/components/elder/Home'
 import Test from '@/components/elder/test'
@@ -75,6 +76,10 @@ export default new Router({
           path: '/allGoods',
           name: 'allGoods',
           component: allGoods,
+        },{
+          path: '/success',
+          name: 'success',
+          component: success,
         }
       ]
     },{

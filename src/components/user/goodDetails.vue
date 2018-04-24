@@ -11,7 +11,7 @@
 				<span style="font-size: 24px;display:block;margin-top: 10px;">{{goodDetails.longname}}</span></br>
 				<span style="color: gray;font-size: 16px;display:block;margin-top: 40px;">{{goodDetails.details}}</span></br>
 				价格&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;font-size: 18px;">¥{{goodDetails.price}}</span></br>
-				<el-input-number size="mini" v-model="num" style="margin: 50px 0 30px;"></el-input-number></br>
+				<el-input-number size="mini" v-model="num" :min="1" style="margin: 50px 0 30px;"></el-input-number></br>
 				<el-button type="warning" @click="addCart">加入购物车</el-button>
 				<el-button type="danger" @click="toPayment">立即下单</el-button>
 			</header>
@@ -66,7 +66,9 @@
 					alert("请登录");
 				} else {
 					this.goodDetails.goodsNum = this.num;
-					this.$emit('toPayment',this.goodDetails)
+					let arr = [];
+					arr.push(this.goodDetails);
+					this.$emit('toPayment',arr)
 				}
 			}
 		},

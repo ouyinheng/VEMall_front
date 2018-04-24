@@ -89,7 +89,7 @@
 			  			<span style="font-size:14px;color:gray;">应付总额不含运费</span>
 			  		</div>
 			  		<div class="button">
-			  			<el-button type="primary" style="margin-top:10px;background-image:linear-gradient(180deg,#678ee7,#5078df)">现在结算</el-button>
+			  			<el-button type="primary" style="margin-top:10px;background-image:linear-gradient(180deg,#678ee7,#5078df)" @click='addOrder'>现在结算</el-button>
 			  		</div>
 			  	</div>
 			</div>
@@ -172,6 +172,9 @@
 		    		}).catch();
 				}
 		    },
+			addOrder(){
+				this.$router.push('/success');
+			},
 		    submit(){
 		    	this.dialogFormVisible = false;
 		    	const _this = this;

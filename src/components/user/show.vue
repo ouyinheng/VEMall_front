@@ -7,7 +7,40 @@
 		  	<el-main class="contain" v-if="mainShow">
 		  		<router-view @addCart="addCart" @toPayment="toPayment"/>
 		  	</el-main>
-		  	<el-footer>Footer</el-footer>
+		  	<footer class="myfooter">
+		  		<div class="mycenter">
+		  			<div>
+						<span>购物相关</span>
+						<span>购物指南</span>
+						<span>配送方式</span>
+						<span>支付方式</span>
+						<span>常见问题</span>
+		  			</div>
+			  		<div>
+			  			<span>保修与退换货</span>
+						<span>保修政策</span>
+						<span>退换货政策</span>
+						<span>退换货流程</span>
+						<span>保修状态查询</span>
+			  		</div>
+			  		<div>
+			  			<span>关于我们</span>
+						<span>公司介绍</span>
+						<span>华为商城简介</span>
+						<span>华为线下门店</span>
+						<span>荣耀线下门店</span>
+						<span>诚征英才</span>
+			  		</div>
+			  		<div>
+			  			<span>友情链接</span>
+			  			<span>华为商城手机版</span>
+						<span>华为官网</span>
+						<span>荣耀官网</span>
+						<span>花粉俱乐部</span>
+						<span>网站地图</span>
+			  		</div>
+		  		</div>
+		  	</footer>
 		</el-container>
 		<el-dialog
 		  title="系统登录"
@@ -64,7 +97,7 @@
 		            //{ validator: validaePass2 }
 		          ]
 		        },
-		        checked: true,
+		        checked: true
 			}
 		},
 		components:{
@@ -147,7 +180,7 @@
 </script>
 
 <style scoped>
-.el-header,.el-footer {
+.el-header{
 	width: 100%;
 	height: 80px!important;
     background-color: #B3C0D1;
@@ -170,6 +203,34 @@
     /*color: #333;
     line-height: 500px;*/
 }
-.el-footer {
+.myfooter {
+	width: 100%;
+	background: RGB(245,245,245);
+}
+.myfooter .mycenter {
+	width: 70%;
+	margin: 0 auto;
+    color: #333;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.myfooter .mycenter>div {
+	width: 200px;
+	height: 180px;
+	padding: 10px 0;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.myfooter .mycenter>div>span:nth-of-type(1){
+	display: block;
+	margin: 10px 0;
+	color: #000;
+}
+.myfooter .mycenter>div>span {
+	font-size: 14px;
+	color: gray;
 }
 </style>

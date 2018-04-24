@@ -1,6 +1,9 @@
-# houtai
+# VE Mall商城
 
-> A Vue.js project
+> 一个基于Vue的带后台管理的项目
+
+## 项目介绍
+![image](./static/images/readme/img01.jpg)
 
 ## Build Setup
 
