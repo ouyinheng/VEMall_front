@@ -35,6 +35,7 @@
 - webpack
 - axios
 - Node.js
+- echarts
 - 第三方SDK
   - 极验Test-button人机验证码
 ## Build Setup
