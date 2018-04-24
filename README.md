@@ -26,6 +26,17 @@
 ![image](./static/images/readme/img09.png "首页")
 ![image](./static/images/readme/img10.png "首页")
 
+## 所用技术
+- Vue 2.x
+- Vuex
+- Vue Router
+- Element UI
+- ES6
+- webpack
+- axios
+- Node.js
+- 第三方SDK
+  - 极验Test-button人机验证码
 ## Build Setup
 
 ``` bash
