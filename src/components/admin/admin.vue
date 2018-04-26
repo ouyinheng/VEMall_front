@@ -21,9 +21,9 @@
                 <el-submenu index="3">
                     <template slot="title"><i class="el-icon-document"></i>数据管理</template>
                     <el-menu-item index="userList">用户列表</el-menu-item>
+                    <el-menu-item index="orderList">订单列表</el-menu-item>
                     <el-menu-item index="massList">社团列表</el-menu-item>
                     <el-menu-item index="pictureList">图片列表</el-menu-item>
-                    <el-menu-item index="orderList">订单列表</el-menu-item>
                     <el-menu-item index="adminList">管理员列表</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
@@ -51,7 +51,7 @@
             </el-menu>
           </el-aside>
           <el-container class="right">
-            <el-header style="text-align: right;padding: 0 5px; font-size: 16px;color:#fff;">
+            <el-header style="text-align: right;padding: 0 5px; font-size: 16px;color:#fff;background:RGB(31,45,61);">
                 <div class="header-right">
                     <span class="span">{{sysUserName}}</span>
                     <el-dropdown>

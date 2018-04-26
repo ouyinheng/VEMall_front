@@ -67,6 +67,7 @@
 				max:'800_800',
 				num:0,
 				checkedGoods:[],
+				userInfo:{}
 				// allPrice:0
 			}
 		},
@@ -225,7 +226,8 @@
 	}
 	.search input {
 		display: block;
-		width: 220px;
+		box-sizing: border-box;
+		width: 80%;
 		height: 36px;
 		line-height: 36px;
 		padding-left: 15px;
@@ -238,6 +240,7 @@
 		background-color: #fff;
 	}
 	.headTop .right .search span {
+		display: block;
 		width: 20px;
 		height: 30px;
 		line-height: 30px;

@@ -16,6 +16,13 @@
 	       			<span class="title">商品总数</span>
 	       		</div>
 	       	</div>
+	       	<div class="content">
+	       		<span class="iconfont icon-cart icon" style="background:RGB(248,211,71)"></span>
+	       		<div class="comDa">
+	       			<span class="num">{{order.length}}</span>
+	       			<span class="title">订单总数</span>
+	       		</div>
+	       	</div>
 	       </header>
 	       <section></section>
     	</div>
@@ -23,7 +30,7 @@
 </template>
 
 <script>
-	import { base,requestAllUser,queryCommodity } from '@/api/api'
+	import { base,requestAllUser,queryCommodity,queryUserOrder } from '@/api/api'
 	import $ from 'jquery'
     export default {
         name: 'home',
@@ -31,7 +38,8 @@
         	return {
         		base:base,
         		user:[],
-        		commodity:[]
+        		commodity:[],
+        		order:[]
         	}
         },
         methods:{
@@ -47,26 +55,17 @@
         			_this.commodity = data;
         		}).catch()
         	},
-        	getW(){
-	            $.ajax({
-	                type:'get',
-	                url:'http://api.map.baidu.com/telematics/v3/weather?output=json&ak=0A5bc3c4fb543c8f9bc54b77bc155724',
-	                data:{location:'北京'},
-	                dataType:'jsonp',
-	                success:function(data){
-	                	console.log(data,'天气');
-	                    // var weather_data = data.results[0].weather_data;
-	                    
-	                    // var html = template('template',{model:weather_data});
-	                    // $('tbody').html(html);
-	                }
-	            });
+        	getOrder(){
+        		const _this = this;
+        		queryUserOrder({id:null}).then(data=>{
+        			_this.order = data;
+        		}).catch()
         	}
         },
         created(){
         	this.getUser();
         	this.getCoom();
-        	this.getW();
+        	this.getOrder();
         }
     }
 </script>
@@ -104,6 +103,7 @@
 	font-weight: bold;
 	text-align: center;
 	background: RGB(108,202,201);
+	border-radius: 5px;
 }
 .home .statistics .content .comDa {
 	width: 220px;

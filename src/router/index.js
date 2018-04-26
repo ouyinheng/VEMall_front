@@ -16,6 +16,7 @@ import handpick from '@/components/admin/handpick'
 import userList from '@/components/admin/userList'
 import massList from '@/components/admin/massList'
 import pictureList from '@/components/admin/pictureList'
+import orderList from '@/components/admin/orderList'
 
 //添加数据
 import addGoods from '@/components/admin/addGoods'
@@ -36,9 +37,14 @@ import myMain from '@/components/user/myMain'
 import goodDetails from '@/components/user/goodDetails'
 import allGoods from '@/components/user/allGoods'
 import order from '@/components/user/order'
+import success from '@/components/user/success'//个人信息
 import myDetails from '@/components/user/myDetails'//个人信息
 import myOrder from '@/components/user/myOrder'//个人信息
-import success from '@/components/user/success'//个人信息
+import UserDetails from '@/components/user/UserDetails'//个人信息
+import mySite from '@/components/user/mySite'//个人信息
+import behindBuy from '@/components/user/behindBuy'//个人信息
+import oldTonew from '@/components/user/oldTonew'//个人信息
+import myNews from '@/components/user/myNews'//个人信息
 /*普通用户*/
 import Home from '@/components/elder/Home'
 import Test from '@/components/elder/test'
@@ -71,6 +77,7 @@ export default new Router({
         },{
           path: '/order',
           name: 'order',
+          meta:{requireAuth:true},
           component: order
         },{
           path: '/allGoods',
@@ -79,7 +86,41 @@ export default new Router({
         },{
           path: '/success',
           name: 'success',
-          component: success,
+          meta:{requireAuth:true},
+          component: success
+        },{
+          //用户信息界面
+          path: '/myDetails',
+          name: 'myDetails',
+          component: myDetails,
+          meta:{requireAuth:true},
+          children:[
+              {
+                path: '/',
+                name: 'myOrder',
+                component: myOrder,
+              },{
+                path: '/UserDetails',
+                name: 'UserDetails',
+                component: UserDetails,
+              },{
+                path: '/mySite',
+                name: 'mySite',
+                component: mySite,
+              },{
+                path: '/behindBuy',
+                name: 'behindBuy',
+                component: behindBuy,
+              },{
+                path: '/oldTonew',
+                name: 'oldTonew',
+                component: oldTonew,
+              },{
+                path: '/myNews',
+                name: 'myNews',
+                component: myNews,
+              }
+          ]
         }
       ]
     },{
@@ -134,6 +175,10 @@ export default new Router({
           name: 'pictureList',
           component: pictureList
         },{
+          path: '/orderList',
+          name: 'orderList',
+          component: orderList
+        },{
           path: '/addGoods',
           name: 'addGoods',
           component: addGoods
@@ -147,17 +192,6 @@ export default new Router({
           component: visitor
         }
       ]
-    },{
-      //用户信息界面
-      path: '/myDetails',
-      name: 'myDetails',
-      component: myDetails,
-      meta:{requireAuth:true},
-      children:[{
-        path: '/myOrder',
-        name: 'myOrder',
-        component: myOrder,
-      }]
     },{
       path: '/home',
       name: 'Home',

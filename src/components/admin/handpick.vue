@@ -23,7 +23,7 @@
 		      width="150">
 		    </el-table-column>
 		    <el-table-column
-		      prop="name"
+		      prop="shortname"
 		      label="商品名"
 		      width="280">
 		    </el-table-column>

@@ -116,7 +116,8 @@
 
 <script>
 	import $ from 'jquery'
-	import { base,addUserInfo,getUserInfo,editUserInfo } from '@/api/api'
+	import { Loading } from 'element-ui'
+	import { base,addUserInfo,getUserInfo,editUserInfo,addUserOrder } from '@/api/api'
 	export default {
 		name: 'order',
 		data(){
@@ -173,7 +174,39 @@
 				}
 		    },
 			addOrder(){
-				this.$router.push('/success');
+				if(this.multipleSelection.length == 0){
+					this.$message.error('请选择要购买的商品');
+				} else {
+					let loadingInstance = Loading.service('正在提交订单');
+					let commInfo = {};
+					commInfo.commodityInfo = [];
+					for(let i=0;i<this.userInfo.length;i++){
+						if(this.userInfo[i].status == 1){
+							commInfo.user_id = this.userInfo[i].personnel_id;
+							commInfo.site_id = this.userInfo[i].id;
+						}
+					}
+					for(let i=0;i<this.multipleSelection.length;i++){
+						commInfo.commodityInfo.push({id:this.multipleSelection[i].id,num:this.multipleSelection[i].goodsNum})
+					}
+					var date = new Date();
+					var time = date.getFullYear() + "_" + date.getMonth() + "_" + date.getDay() + "_" + date.getHours() + "_" + date.getMinutes();
+					commInfo.order_time = time;
+					console.log(commInfo);
+					addUserOrder(commInfo).then(data=>{
+						this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+						  	loadingInstance.close();
+						  	localStorage.removeItem('goodsList');
+							this.$router.push('/success');
+						});
+					}).catch(error=>{
+						this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+						  	loadingInstance.close();
+						  	this.$message.error('订单提交失败!');
+						});
+					})
+					// console.log(this.multipleSelection);
+				}
 			},
 		    submit(){
 		    	this.dialogFormVisible = false;

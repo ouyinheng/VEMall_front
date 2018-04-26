@@ -4,31 +4,21 @@
 			<div class="left">
 				<span class="title">我的商城</span>
 				<el-menu
-			      default-active="2"
+			      :default-active="defaultActive" 
 			      class="el-menu-vertical-demo"
 			      @open="handleOpen"
 			      @close="handleClose"
 			      background-color="#fff"
 			      text-color="#000"
-			      style="padding: 10px;"
+			      style="padding: 10px 0 140px;"
 			      router
 			      active-text-color="RGB(202,20,29)">
-			      	<div>
-				      	<span class="el-icon-tickets" style="color: RGB(202,20,29);"></span>
-				      	<span><b>订单中心</b></span>
-			      	</div>
-			      	<el-menu-item index="myOrder">我的订单</el-menu-item>
-			      	<el-menu-item index="1-2">选项1</el-menu-item>
-			      	<el-menu-item index="1-3">选项1</el-menu-item>
-			      	<el-menu-item index="1-4">选项1</el-menu-item>
-			      	<div>
-				      	<span class="el-icon-goods" style="color: RGB(202,20,29);"></span>
-				      	<span><b>购买支持</b></span>
-			      	</div>
-			      	<el-menu-item index="2-1">选项1</el-menu-item>
-			      	<el-menu-item index="2-2">选项1</el-menu-item>
-			      	<el-menu-item index="2-3">选项1</el-menu-item>
-			      	<el-menu-item index="2-4">选项1</el-menu-item>
+			      	<el-menu-item index="myDetails">我的订单</el-menu-item>
+			      	<el-menu-item index="UserDetails">账户资料</el-menu-item>
+			      	<el-menu-item index="mySite">收货地址</el-menu-item>
+			      	<el-menu-item index="behindBuy">售后服务</el-menu-item>
+			      	<el-menu-item index="oldTonew">以旧换新</el-menu-item>
+			      	<el-menu-item index="myNews">我的优惠</el-menu-item>
 			    </el-menu>
 			</div>
 			<div class="right">
@@ -49,6 +39,11 @@
 
 			}
 		},
+		computed: {
+            defaultActive: function(){
+                return this.$route.path.replace('/', '');
+            }
+        },
 		methods:{
 			handleOpen(key, keyPath) {
 		        console.log(key, keyPath);
@@ -63,13 +58,14 @@
 <style>
 .myDetails {
 	width: 100%;
-
+	margin: 50px 0;
+	background: #ededed;
 }
 .myDetails .main {
 	width: 70%;
 	min-width: 1200px;
 	margin: 0 auto;
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 }
 .myDetails .main .left {
 	width: 20%;
@@ -89,6 +85,6 @@
 .myDetails .main .right {
 	width: 80%;
 	float: right;
-	background: lightblue;
+	/*background: lightblue;*/
 }
 </style>

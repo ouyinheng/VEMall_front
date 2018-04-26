@@ -1,6 +1,6 @@
 <template>
-	<div class="myOrder">
-		<header class="title">我的订单</header>
+	<div class="orderList">
+		<header class="title">订单列表</header>
 		<div v-if="commList.length==0">
 			<h3>没有订单</h3>
 		</div>
@@ -91,7 +91,7 @@
 <script>
 	import { queryUserOrder,queryComm,base,getUserSite } from '@/api/api'
 	export default {
-		name: 'myOrder',
+		name: 'orderList',
 		data(){
 			return {
 				base:base,
@@ -109,12 +109,18 @@
 		    },
 		    test(){
 		    	alert()
-		    }
+		    },
+			getOrder(){
+        		const _this = this;
+        		queryUserOrder({id:null}).then(data=>{
+        			_this.order = data;
+        		}).catch()
+        	}
 		},
 		created(){
 			const _this = this;
 			let id = JSON.parse(sessionStorage.getItem('user')).id;
-			queryUserOrder({id:id}).then(data=>{
+			queryUserOrder({id:null}).then(data=>{
 				for(let i=0;i<data.length;i++){
 					let status = data[i].status;
 					let time = data[i].order_time;
@@ -142,8 +148,8 @@
 </script>
 
 <style>
-.myOrder {
-	width: 1000px;
+.orderList {
+	width: 90%;
 	margin: 0px 0 0 20px;
 	border: 1px solid #dcdcdc;
 	border-radius: 8px;
@@ -151,7 +157,7 @@
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
 }
-.myOrder .title {
+.orderList .title {
 	width: 100%;
 	height: 60px;
 	line-height: 60px;
@@ -175,7 +181,7 @@
 	text-align: left;
 	padding-left: 20px;
 }
-.myOrder .status{
+.orderList .status{
 	background: #f6f6f6;
 	border: 1px solid #dadada;
 	border-radius: 5px;
@@ -184,7 +190,7 @@
 	line-height: 38px;
 	text-align:left;
 }
-.myOrder .status>p {
+.orderList .status>p {
 	border-top: 1px solid #dcdcdc;
 	margin-top: 20px;
 	padding-top: 26px;
@@ -202,6 +208,5 @@
 	box-shadow: 0 10px 15px rgba(0,0,0,0.07);
 	transform: translate3d(0px,-2px,0px);
 	z-index: 2;
-}
-
+}	
 </style>

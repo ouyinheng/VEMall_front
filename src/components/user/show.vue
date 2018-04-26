@@ -5,7 +5,7 @@
 		  		<headTop @toPopup="dialogVisible = true" @logout="logout" :user="sendUser" :bool="sendBool" :treasure="treasure" @toPayment="toPayment"></headTop>
 		  	</el-header>
 		  	<el-main class="contain" v-if="mainShow">
-		  		<router-view @addCart="addCart" @toPayment="toPayment"/>
+		  		<router-view @addCart="addCart" @toPayment="toPayment" />
 		  	</el-main>
 		  	<footer class="myfooter">
 		  		<div class="mycenter">
@@ -197,7 +197,7 @@
 } 
 .el-main {
 	margin-top: 80px;
-
+	padding-bottom: 80px;
     background-color: #E9EEF3;
     text-align: center;
     /*color: #333;

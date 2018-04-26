@@ -1,21 +1,25 @@
 <template>
-	<div class="goodDetails">
-		<div class="left">
-			<img :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+mid+maxImg" alt="">
-			<div class="minImg">
-				<img v-for="(item,index) in goodDetails.picture" :key="item" :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+min+item" alt="" @mousemove="toChange($event,item)">
+	<div>
+		<div class="goodDetails">
+			<div class="left">
+				<img :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+mid+maxImg" alt=""  class="midImg">
+				<div class="minImg">
+					<img v-for="(item,index) in goodDetails.picture" :key="item" :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+min+item" alt="" @mousemove="toChange($event,item)">
+				</div>
+			</div>
+			<div class="right">
+				<header class="title">
+					<span style="font-size: 24px;display:block;margin-top: 10px;">{{goodDetails.longname}}</span></br>
+					<span style="color: gray;font-size: 16px;display:block;margin-top: 40px;">{{goodDetails.details}}</span></br>
+					价格&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;font-size: 18px;">¥{{goodDetails.price}}</span></br>
+					<el-input-number size="mini" v-model="num" :min="1" style="margin: 50px 0 30px;"></el-input-number></br>
+					<el-button type="warning" @click="addCart">加入购物车</el-button>
+					<el-button type="danger" @click="toPayment">立即下单</el-button>
+				</header>
 			</div>
 		</div>
-		<div class="right">
-			<header class="title">
-				<span style="font-size: 24px;display:block;margin-top: 10px;">{{goodDetails.longname}}</span></br>
-				<span style="color: gray;font-size: 16px;display:block;margin-top: 40px;">{{goodDetails.details}}</span></br>
-				价格&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;font-size: 18px;">¥{{goodDetails.price}}</span></br>
-				<el-input-number size="mini" v-model="num" :min="1" style="margin: 50px 0 30px;"></el-input-number></br>
-				<el-button type="warning" @click="addCart">加入购物车</el-button>
-				<el-button type="danger" @click="toPayment">立即下单</el-button>
-			</header>
-		</div>
+		<!-- <img :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+max+maxImg" alt="" id="maxImg"> -->
+
 	</div>
 </template>
 
@@ -88,7 +92,8 @@
 	background: #fff;
 	display: flex;
 	flex-direction: row;
-	padding: 10px 0;
+	padding: 10px 0 100px;
+	border-radius: 10px;
 }
 .goodDetails .back:hover {
 	color: lightblue;
@@ -97,7 +102,14 @@
 .goodDetails .left {
 	width: 45%;
 }
-.goodDetails .left>img {
+#maxImg {
+	display: block;
+	position: relative;
+	/*float: left;*/
+	top: -700px;
+	left: 600px;
+}
+.goodDetails .left .midImg {
 	display: block;
 	width: 428px;
 	margin: 0 auto;
@@ -112,6 +124,7 @@
 }
 .imgBorder {
 	border: 1px solid red;
+	border-radius: 5px;
 }
 .goodDetails .right {
 	width: 55%;
