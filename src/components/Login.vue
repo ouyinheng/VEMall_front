@@ -30,6 +30,7 @@ import $ from 'jquery'
 import {mapState,mapActions} from 'vuex'
 import gt from '../assets/js/gt.js'
 import { toVerify } from '@/api/api'
+import crypto from 'crypto'
 export default {
   name: 'Login',
   data() {
@@ -84,6 +85,13 @@ export default {
       handleReset2() {
         
       },
+      getmd5(data){
+          var a;
+          var md5 = crypto.createHash("md5");
+          md5.update(data);
+          var a = md5.digest('hex');
+          return a;
+      },
       handleSubmit(ev) {
           var _this = this;
           if(this.disabled){
@@ -96,11 +104,10 @@ export default {
           }
           this.$refs.user.validate((valid) => {
               if(valid){
+                this.user.password = this.getmd5(this.user.password);
                 var loginParams = { username: _this.user.username, password: _this.user.password};
                 _this.logining = true;
-                // console.log(loginParams);
-                _this.toLogin(loginParams).then(data=>{
-                  console.log(_this.user,'---');
+                _this.toAdminLogin(loginParams).then(data=>{
                   if(data){
                       _this.$notify({
                           title: '成功',
@@ -137,7 +144,7 @@ export default {
           })
       },
       ...mapActions([
-          'toLogin','isLogin'
+          'toAdminLogin','isLogin'
       ])
     }
 }

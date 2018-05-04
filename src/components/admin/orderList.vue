@@ -32,7 +32,7 @@
 		    <el-table-column
 		      :label="item[0].ordertime"
 		      prop="displayImg"
-		      header-align="center"
+		      
 		      width="150">
 		      <template slot-scope="scope">
 		      	<img :src="base+'/queryImages?img=goods/allGoods/'+scope.row.displayImg" width="78px" alt="">
@@ -41,12 +41,12 @@
 		    <el-table-column
 		      :label="'订单号: '+item[0].orderid"
 		      show-overflow-tooltip
-		      header-align="center"
+		      
 		      prop="longname">
 		    </el-table-column>
 		    <el-table-column
 		      label="单价(元)"
-		      header-align="center"
+		      
 		      prop="price">
 		      <template slot-scope="scope">
 		      	<span>¥ {{scope.row.price}}</span>
@@ -54,19 +54,19 @@
 		    </el-table-column>
 		    <el-table-column
 		      label="数量(个)"
-		      header-align="center"
+		      
 		      prop="orderNum">
 		    </el-table-column>
 		    <el-table-column
 		      label="商品操作"
-		      header-align="center">
+		      >
 		      <template slot-scope="scope">
-		      		<el-button type="danger">删除订单</el-button>
+		      		<el-button type="danger" v-if="scope.row.orderStatus==1" @click="submitPay(scope.row.orderid)">确认支付成功</el-button>
 		      </template>
 		    </el-table-column>
 		    <el-table-column
 		      label="实付金额(元)"
-		      header-align="center"
+		      
 		      prop="price">
 		      <template slot-scope="scope">
 		      	<span>¥ {{scope.row.price*scope.row.orderNum}}</span>
@@ -74,13 +74,14 @@
 		    </el-table-column>
 		    <el-table-column
 		      label="订单状态"
-		      header-align="center"
+		      
 		      @click="test"
 		      prop="orderStatus">
 		      <template slot-scope="scope">
-		      	<el-button type="primary" v-if="scope.row.orderStatus==0">现在付款</el-button>
+		      	<span v-if="scope.row.orderStatus==0">等待付款</span>
 		      	<span v-if="scope.row.orderStatus==1">支付审核中</span>
-		      	<span v-if="scope.row.orderStatus==2">支付审核中</span>
+		      	<span v-if="scope.row.orderStatus==2">正在送货</span>
+		      	<span v-if="scope.row.orderStatus==3">交易完成</span>
 		      </template>
 		    </el-table-column>
 		  </el-table>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-	import { queryUserOrder,queryComm,base,getUserSite } from '@/api/api'
+	import { queryUserOrder,queryComm,base,getUserSite,editUserOrder } from '@/api/api'
 	export default {
 		name: 'orderList',
 		data(){
@@ -115,34 +116,59 @@
         		queryUserOrder({id:null}).then(data=>{
         			_this.order = data;
         		}).catch()
+        	},
+        	queryComm(){
+		    	this.commList = [];
+		    	const _this = this;
+				let id = JSON.parse(sessionStorage.getItem('user')).id;
+				queryUserOrder({id:id}).then(data=>{
+					for(let i=0;i<data.length;i++){
+						let status = data[i].status;
+						let time = data[i].order_time;
+						let orderid = data[i].id;
+						let siteid = data[i].site_id;
+						let commInfo = JSON.parse(data[i].commodityInfo);
+						getUserSite({id:siteid}).then(data=>{
+							let site = data[0];
+							for(let j=0;j<commInfo.length;j++){
+								queryComm({id:commInfo[j].id}).then(data=>{
+									data[0].orderNum = commInfo[j].num;
+									data[0].orderStatus = status;
+									data[0].ordertime = time;
+									data[0].orderid = orderid;
+									data[0].site = site;
+									_this.commList.push(data);
+								}).catch()
+							}
+						}).catch()
+						
+					}
+				}).catch()
+		    },
+        	submitPay(id){
+        		var tip = '确认用户已经支付成功?';
+			    this.$confirm(tip, '提示', {
+	                confirmButtonText: '确定',
+	                cancelButtonText: '取消',
+	                type: 'warning'
+                }).then(() => {
+                	let obj = 'status';
+                	let data = 2;
+                	console.log(id,obj,data);
+                    editUserOrder({id:id,obj:obj,data:data}).then(data=>{
+                    	console.log(data,'---data')
+						this.queryComm();
+                    }).catch()
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                  });          
+                });
         	}
 		},
 		created(){
-			const _this = this;
-			let id = JSON.parse(sessionStorage.getItem('user')).id;
-			queryUserOrder({id:null}).then(data=>{
-				for(let i=0;i<data.length;i++){
-					let status = data[i].status;
-					let time = data[i].order_time;
-					let orderid = data[i].id;
-					let siteid = data[i].site_id;
-					let commInfo = JSON.parse(data[i].commodityInfo);
-					getUserSite({id:siteid}).then(data=>{
-						let site = data[0];
-						for(let j=0;j<commInfo.length;j++){
-							queryComm({id:commInfo[j].id}).then(data=>{
-								data[0].orderNum = commInfo[j].num;
-								data[0].orderStatus = status;
-								data[0].ordertime = time;
-								data[0].orderid = orderid;
-								data[0].site = site;
-								_this.commList.push(data);
-							}).catch()
-						}
-					}).catch()
-					
-				}
-			}).catch()
+			this.queryComm();
 		}
 	}
 </script>
@@ -178,7 +204,7 @@
 	border-bottom: 1px solid #dcdcdc;
 	border-color: rgba(0,0,0,.14);
 	font-size: 20px;
-	text-align: left;
+	text-align: center;
 	padding-left: 20px;
 }
 .orderList .status{
@@ -188,7 +214,7 @@
 	padding: 22px 30px 20px;
 	margin: 20px 30px 30px;
 	line-height: 38px;
-	text-align:left;
+	text-align:center;
 }
 .orderList .status>p {
 	border-top: 1px solid #dcdcdc;

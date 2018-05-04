@@ -37,6 +37,7 @@
 	import { toVerify,toVerifyMailNum ,toReg} from '@/api/api'
 	import o_countDown from '@/components/user/countDown'
 	import { toFindPwd } from '@/api/api'
+	import crypto from 'crypto'
 	export default {
 		name: 'register',
 		data(){
@@ -97,6 +98,14 @@
 	      		 	}
 	          })
 	      },
+	      getmd5(data){
+	            var a;
+	            var md5 = crypto.createHash("md5");
+	            md5.update(data);
+	            var a = md5.digest('hex');
+	            return a;
+	            //47bce5c74f589f4867dbd57e9ca9f808 
+	      },
 	      getAuthCode(){
 	      		this.emailDis = true;
 	      		const _this = this;
@@ -126,6 +135,7 @@
 	      handleSubmit(){
 	      	//	注册
 	      	const _this = this;
+	      	this.user.password = this.getmd5(this.user.password);
 	      	toReg(_this.user).then(data=>{
 	      		if(data){
 	      			this.$message({

@@ -1,8 +1,8 @@
 <template>
 	<div class="myMain">
 		<el-carousel :interval="5000" height="600px">
-		    <el-carousel-item v-for="(item,index) in img" :key="index">
-		      	<img :src="item.url" alt="" width="100%" height="100%">
+		    <el-carousel-item v-for="(item,index) in data" :key="index">
+		      	<img :src="base+'/queryImages?img=slideshow/'+item.url" alt="" width="100%" height="100%" @click="toDetails(index)">
 		    </el-carousel-item>
 		</el-carousel>
 		<hot @toBuyPage="toBuyPage"></hot>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+	import { base,queryAllSlideShow,getCom } from '@/api/api'
 	import hot from '@/components/user/hot'
 	import huawei from '@/components/user/huawei'
 	import handpick from '@/components/user/handpick'
@@ -22,21 +23,8 @@
 		name: 'show',
 		data(){
 			return {
-				img:[{
-		        	url:'@/../static/images/head/054142e3-076f-4ce8-95e2-5d6559582176.jpg'
-		        },{
-		        	url:'@/../static/images/head/19441725-bfe9-4624-ab84-5a72a4ab8bfb.jpg'
-		        },{
-		        	url:'@/../static/images/head/3831480a-b1a7-4ca3-a8e0-9d5656d86217.jpg'
-		        },{
-		        	url:'@/../static/images/head/5c4b2a4e-441b-417d-8eb8-45757a048bcd.jpg'
-		        },{
-		        	url:'@/../static/images/head/5d8e9d35-6ff4-4918-904e-8b57c96c20c9.jpg'
-		        },{
-		        	url:'@/../static/images/head/d7350a20-cd03-4305-909f-55ceef2b4de7.jpg'
-		        },{
-		        	url:'@/../static/images/head/f92f925a-f434-4b83-95f6-06c50a96c259.jpg'
-		        }],
+				base:base,
+				data:[],
 
 			}
 		},
@@ -62,7 +50,38 @@
 		    	window.open(window.location.origin + '/#/goodDetails')
 				this.$router.push('/')
 		    	// this.$router.push('/goodDetails')
+			},
+			getSlideShow(){
+				const _this = this;
+				queryAllSlideShow().then(data=>{
+					_this.data = data;
+				}).catch()
+			},
+			toDetails(index){
+				let id = this.data[index].commodity_id;
+				getCom({id:id}).then(da=>{
+					console.log(data);
+					let data = da[0]
+					let picture = [];
+			    	for(let i=0;i<data.picture.length;i++){
+			    		let arr = data.picture[i].url.split('_');
+			    		if(arr[0] == '78'){
+			    			let url = '';
+			    			for(let j=2;j<arr.length;j++){
+			    				url += "_"+arr[j];
+			    			}
+							picture.push(url);
+			    		}
+			    	}
+			    	data.picture = picture;
+					sessionStorage.setItem('goodDetails', JSON.stringify(data));
+					window.open(window.location.origin + '/#/goodDetails')
+				}).catch()
+				
 			}
+		},
+		created(){
+			this.getSlideShow();
 		}
 	}
 </script>

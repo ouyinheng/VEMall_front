@@ -21,6 +21,7 @@ import orderList from '@/components/admin/orderList'
 //添加数据
 import addGoods from '@/components/admin/addGoods'
 import addshop from '@/components/admin/addshop'
+import slideshow from '@/components/admin/addSlideShow'
 
 //图表
 import visitor from '@/components/admin/visitor'
@@ -64,30 +65,30 @@ export default new Router({
     {//此处为商品展示页面
       path: '/',
       name: 'Show',
-      component: Show,
+      component: resolve=> require(['@/components/user/show'],resolve),
       children:[
         {
           path: '/',
           name: 'myMain',
-          component: myMain,
+          component: resolve=> require(['@/components/user/myMain'],resolve)
         },{
           path: '/goodDetails',
           name: 'goodDetails',
-          component: goodDetails,
+          component: resolve=> require(['@/components/user/goodDetails'],resolve)
         },{
           path: '/order',
           name: 'order',
           meta:{requireAuth:true},
-          component: order
+          component: resolve=> require(['@/components/user/order'],resolve)
         },{
           path: '/allGoods',
           name: 'allGoods',
-          component: allGoods,
+          component: resolve=> require(['@/components/user/allGoods'],resolve)
         },{
           path: '/success',
           name: 'success',
           meta:{requireAuth:true},
-          component: success
+          component: resolve=> require(['@/components/user/success'],resolve)
         },{
           //用户信息界面
           path: '/myDetails',
@@ -98,27 +99,27 @@ export default new Router({
               {
                 path: '/',
                 name: 'myOrder',
-                component: myOrder,
+                component: resolve=> require(['@/components/user/myOrder'],resolve)
               },{
                 path: '/UserDetails',
                 name: 'UserDetails',
-                component: UserDetails,
+                component: resolve=> require(['@/components/user/UserDetails'],resolve)
               },{
                 path: '/mySite',
                 name: 'mySite',
-                component: mySite,
+                component: resolve=> require(['@/components/user/mySite'],resolve)
               },{
                 path: '/behindBuy',
                 name: 'behindBuy',
-                component: behindBuy,
+                component: resolve=> require(['@/components/user/behindBuy'],resolve)
               },{
                 path: '/oldTonew',
                 name: 'oldTonew',
-                component: oldTonew,
+                component: resolve=> require(['@/components/user/oldTonew'],resolve)
               },{
                 path: '/myNews',
                 name: 'myNews',
-                component: myNews,
+                component: resolve=> require(['@/components/user/myNews'],resolve)
               }
           ]
         }
@@ -126,70 +127,74 @@ export default new Router({
     },{
       path: '/forget',
       name: 'forget',
-      component: forget
+      component: resolve=> require(['@/components/forget'],resolve)
     },{
       path: '/404',
       name: 'error',
-      component: error
+      component: resolve=> require(['@/components/404'],resolve)
     },{//用户登录
       path: '/userLogin',
       name: 'userLogin',
-      component: userLogin
+      component: resolve=> require(['@/components/user/login'],resolve)
     },{
       path: '/register',
       name: 'register',
-      component: register
+      component: resolve=> require(['@/components/user/register'],resolve)
     },{
       //管理员登录
       path: '/Login',
       name: 'Login',
-      component: Login
+      component: resolve=> require(['@/components/Login'],resolve)
     },{//管理员界面
       path: '/admin',
       name: 'Admin',
-      component: Admin,
+      component: resolve=> require(['@/components/admin/admin'],resolve),
       meta:{requireAuth:true},
       children:[
         {
           path: '/',
           name: 'home',
-          component: home,
+          component: resolve=> require(['@/components/admin/home'],resolve)
         },{
           path:'/hotGoods',
           name: 'hotGoods',
-          component: hotGoods
+          component: resolve=> require(['@/components/admin/hotGoods'],resolve)
         },{
           path:'/handpick',
           name: 'handpick',
-          component: handpick
+          component: resolve=> require(['@/components/admin/handpick'],resolve)
         },{
           path: '/userList',
           name: 'userList',
-          component: userList
+          component: resolve=> require(['@/components/admin/userList'],resolve)
         },{
           path: '/massList',
           name: 'massList',
-          component: massList
+          component: resolve=> require(['@/components/admin/massList'],resolve)
         },{
           path: '/pictureList',
           name: 'pictureList',
-          component: pictureList
+          component: resolve=> require(['@/components/admin/pictureList'],resolve)
         },{
           path: '/orderList',
           name: 'orderList',
-          component: orderList
+          component: resolve=> require(['@/components/admin/orderList'],resolve)
         },{
           path: '/addGoods',
           name: 'addGoods',
-          component: addGoods
+          component: resolve=> require(['@/components/admin/addGoods'],resolve)
         },{
           path: '/addshop',
           name: 'addshop',
-          component: addshop
+          component: resolve=> require(['@/components/admin/addshop'],resolve)
+        },{
+          path: '/slideshow',
+          name: 'slideshow',
+          component: resolve=> require(['@/components/admin/addSlideShow'],resolve)
         },{
           path: '/visitor',
           name: 'visitor',
-          component: visitor
+          component: resolve=> require(['@/components/admin/visitor'],resolve)
         }
       ]
     },{

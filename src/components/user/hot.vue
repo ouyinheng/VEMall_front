@@ -64,7 +64,7 @@
 	text-align: left;
 	padding-left: 20px;
 }
-.hotCard {
+.hot .hotCard {
 	display: inline-block;
 	width: 50%;
 	box-sizing: border-box;
@@ -72,7 +72,7 @@
 	background: #fff;
 	transition: all .2s linear 0s;
 }
-.hotCard:hover {
+.hot .hotCard:hover {
 	cursor: pointer;
 	box-shadow: 0 10px 15px rgba(0,0,0,0.07);
 	transform: translate3d(0px,-2px,0px);

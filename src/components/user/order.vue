@@ -71,7 +71,7 @@
 			      label="操作"
 			      width="120">
 			      <template slot-scope="scope">
-				      <el-button type="danger" icon="el-icon-delete" circle></el-button>
+				      <el-button type="danger" icon="el-icon-delete" circle @click="delGoods(scope.row.id)"></el-button>
 				  </template>
 			    </el-table-column>
 			</el-table>
@@ -159,6 +159,18 @@
 				getUserInfo(data).then(data=>{
 					_this.userInfo = data;
 				}).catch()
+		    },
+		    delGoods(id){
+		    	console.log(id);
+		    	console.log(this.goodsList);
+		    	const _this = this;
+		    	this.goodsList.forEach(function(item,index){
+		    		if(item.id == id){
+		    			_this.goodsList.splice(index,1);
+		    		}
+		    	})
+		    	sessionStorage.setItem('goodsList',JSON.stringify(this.goodsList));
+		    	localStorage.setItem('goodsList',JSON.stringify(this.goodsList));
 		    },
 		    editSite(index){
 		    	const _this = this;

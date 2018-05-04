@@ -78,7 +78,12 @@
 		},
 		created(){
 			this.goodDetails = JSON.parse(sessionStorage.getItem('goodDetails'));
-			this.maxImg=this.goodDetails.picture[0]
+			this.maxImg=this.goodDetails.picture[0];
+			this.$box1 = $("#box1");
+			this.$box2 = $("#box2");
+			this.$mark = $("#mark");
+			this.$img = $("#box2").children('img');
+			console.log(this.$box2);
 		}
 	}
 </script>

@@ -1,27 +1,30 @@
 <template>
-	<div class="hotGoods">
-		<span class="title">热门商品</span>
-		<mytable :list="data" :property="'goods/hotGoods/'"></mytable>
+	<div class="slideshow">
+		<span class="title">轮播图</span>
+		<mytable :list="data" :property="'goods/slideshow/'" @updateList='updateList'></mytable>
 	</div>
 </template>
 
 <script>
-	import { requestFileName,queryCommodity } from "@/api/api"
+	import { queryCommodity,addSlideShow,querySlideShow } from "@/api/api"
 	import mytable from '@/components/admin/table'
 	export default {
-		nama: 'hotGoods',
+		name: 'slideshow',
 		data(){
 			return {
-				data:[],
+				data:[]
 			}
 		},
 		components:{
 			mytable
 		},
 		methods:{
+			toBuyPage(index){
+				console.log(index)
+			},
 			getData(){
 				const _this = this;
-				queryCommodity({property:'hotGoods'}).then(data=>{
+				queryCommodity({property:'slideshow'}).then(data=>{
 					_this.data = data;
 					for(let i=0;i<data.length;i++){
 						let picture = [];
@@ -37,21 +40,32 @@
 				    	}
 				    	_this.data[i].picture = picture;
 					}
+				}).then(()=>{
+					_this.getSlideShow();
 				}).catch()
+			},
+			getSlideShow(){
+				const _this = this;
+				for(let i=0;i<_this.data.length;i++){
+					querySlideShow({id:_this.data[i].id}).then(data=>{
+						_this.data[i].slideshow = data;
+					}).catch(error=>{
+						console.log(error);
+					})
+				}
+			},
+			updateList(){
+				this.getData();
 			}
 		},
 		created(){
 			this.getData();
-			const _this = this;
-			requestFileName({param:'hotGoods'}).then(data=>{
-				_this.fileArr = data;
-			}).catch();
 		}
 	}
 </script>
 
 <style>
-.hotGoods {
+.slideshow {
 	width: 90%;
 	min-width: 1200px;
 	/*padding: 10px;*/
@@ -62,7 +76,7 @@
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
 }
-.hotGoods .title {
+.slideshow .title {
 	display: block;
 	width: 100%;
 	height: 60px;

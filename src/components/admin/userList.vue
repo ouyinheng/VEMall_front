@@ -30,8 +30,10 @@
               </template>
             </el-table-column>
             <el-table-column
-              prop="password"
               label="密码">
+              <template  slot-scope="scope">
+                <span>你是看不到的</span>
+              </template>
             </el-table-column>
             <el-table-column
               label="账号状态"
@@ -90,7 +92,7 @@
                 <el-input v-model="form.username"></el-input>
               </el-form-item>
              <el-form-item label="密码">
-                <el-input v-model="form.password"></el-input>
+                <el-input v-model="form.password" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="账号状态">
                 <el-switch v-model="form.status"></el-switch>

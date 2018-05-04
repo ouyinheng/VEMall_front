@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
-import {requestLogin,requestAllUser,requestAllMass,toVerify} from '../api/api'
+import {requestLogin,requestAllUser,requestAllMass,toVerify,requestAdminLogin} from '../api/api'
 
 //登录
 export const toLogin = (context,data) => {
@@ -11,6 +11,22 @@ export const toLogin = (context,data) => {
         }).catch(error=>{
             reject(error);
             // console.log(error);
+        })
+    })
+};
+
+//登录
+export const toAdminLogin = (context,data) => {
+    return new Promise((resolve,reject)=>{
+        requestAdminLogin(data).then(data=>{
+            context.commit('toAdminLogin',data);
+            if(data){
+                resolve('请求成功');
+            } else {
+                resolve(data);
+            }
+        }).catch(error=>{
+            reject(error);
         })
     })
 };

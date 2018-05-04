@@ -12,10 +12,10 @@
 		      <template slot-scope="props">
 		        <header id="title">订单号:{{props.row.orderid}}</header>
 		        <el-steps :active="props.row.orderStatus+1" align-center>
-				  <el-step title="下单" description="这是一段很长很长很长的描述性文字"></el-step>
-				  <el-step title="付款" description="这是一段很长很长很长的描述性文字"></el-step>
-				  <el-step title="支付审核" description="这是一段很长很长很长的描述性文字"></el-step>
-				  <el-step title="交易成功" description="这是一段很长很长很长的描述性文字"></el-step>
+				  <el-step title="下单" description="下单成功"></el-step>
+				  <el-step title="付款" description="请及时付款"></el-step>
+				  <el-step title="支付审核" description="正在审核中"></el-step>
+				  <el-step title="交易成功" description="success"></el-step>
 				</el-steps>
 				<div class="status">
 					<h3>订单状态{{props.row.orderStatus}}</h3>
@@ -61,7 +61,7 @@
 		      label="商品操作"
 		      header-align="center">
 		      <template slot-scope="scope">
-		      		<el-button type="danger">删除订单</el-button>
+		      		<el-button type="danger" :disabled="scope.row.orderStatus==0?false:true" @click="delOrder(item[0].orderid)">删除订单</el-button>
 		      </template>
 		    </el-table-column>
 		    <el-table-column
@@ -78,9 +78,10 @@
 		      @click="test"
 		      prop="orderStatus">
 		      <template slot-scope="scope">
-		      	<el-button type="primary" v-if="scope.row.orderStatus==0">现在付款</el-button>
-		      	<span v-if="scope.row.orderStatus==1">支付审核中</span>
-		      	<span v-if="scope.row.orderStatus==2">支付审核中</span>
+		      	<el-button type="primary" v-if="scope.row.orderStatus==0" @click="nowBuy(item[0].orderid,1)">现在付款</el-button>
+		      	<span v-if="scope.row.orderStatus==1">支付审核中...</span>
+		      	<span v-if="scope.row.orderStatus==2"><el-button type="success"  @click="nowBuy(item[0].orderid,3)">确认收货</el-button></span>
+		      	<span v-if="scope.row.orderStatus==3">交易完成</span>
 		      </template>
 		    </el-table-column>
 		  </el-table>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-	import { queryUserOrder,queryComm,base,getUserSite } from '@/api/api'
+	import { queryUserOrder,queryComm,base,getUserSite,delUserOrder,editUserOrder } from '@/api/api'
 	export default {
 		name: 'myOrder',
 		data(){
@@ -109,34 +110,76 @@
 		    },
 		    test(){
 		    	alert()
+		    },
+		    delOrder(id){
+		    	console.log(id)
+		    	var tip = '此操作将永久删除订单信息, 是否继续?';
+			    	this.$confirm(tip, '提示', {
+		                confirmButtonText: '确定',
+		                cancelButtonText: '取消',
+		                type: 'warning'
+                }).then(() => {
+                    delUserOrder({id:id}).then(data=>{
+                    	console.log(data,'---data')
+						this.queryComm();
+                    }).catch()
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                  });          
+                });
+		    },
+		    nowBuy(id,status){
+		    	var tip = '测试付款?';
+			    this.$confirm(tip, '提示', {
+	                confirmButtonText: '确定',
+	                cancelButtonText: '取消',
+	                type: 'warning'
+                }).then(() => {
+                	let obj = 'status';
+                    editUserOrder({id:id,obj:obj,data:status}).then(data=>{
+                    	console.log(data,'---data')
+						this.queryComm();
+                    }).catch()
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                  });          
+                });
+		    },
+		    queryComm(){
+		    	this.commList = [];
+		    	const _this = this;
+				let id = JSON.parse(sessionStorage.getItem('user')).id;
+				queryUserOrder({id:id}).then(data=>{
+					for(let i=0;i<data.length;i++){
+						let status = data[i].status;
+						let time = data[i].order_time;
+						let orderid = data[i].id;
+						let siteid = data[i].site_id;
+						let commInfo = JSON.parse(data[i].commodityInfo);
+						getUserSite({id:siteid}).then(data=>{
+							let site = data[0];
+							for(let j=0;j<commInfo.length;j++){
+								queryComm({id:commInfo[j].id}).then(data=>{
+									data[0].orderNum = commInfo[j].num;
+									data[0].orderStatus = status;
+									data[0].ordertime = time;
+									data[0].orderid = orderid;
+									data[0].site = site;
+									_this.commList.push(data);
+								}).catch()
+							}
+						}).catch()
+						
+					}
+				}).catch()
 		    }
 		},
 		created(){
-			const _this = this;
-			let id = JSON.parse(sessionStorage.getItem('user')).id;
-			queryUserOrder({id:id}).then(data=>{
-				for(let i=0;i<data.length;i++){
-					let status = data[i].status;
-					let time = data[i].order_time;
-					let orderid = data[i].id;
-					let siteid = data[i].site_id;
-					let commInfo = JSON.parse(data[i].commodityInfo);
-					getUserSite({id:siteid}).then(data=>{
-						let site = data[0];
-						for(let j=0;j<commInfo.length;j++){
-							queryComm({id:commInfo[j].id}).then(data=>{
-								data[0].orderNum = commInfo[j].num;
-								data[0].orderStatus = status;
-								data[0].ordertime = time;
-								data[0].orderid = orderid;
-								data[0].site = site;
-								_this.commList.push(data);
-							}).catch()
-						}
-					}).catch()
-					
-				}
-			}).catch()
+			this.queryComm();
 		}
 	}
 </script>

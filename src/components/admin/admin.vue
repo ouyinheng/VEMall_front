@@ -17,14 +17,13 @@
                     <!-- <el-menu-item index="uploadImg">上传图片</el-menu-item> -->
                     <el-menu-item index="hotGoods">热门商品</el-menu-item>
                     <el-menu-item index="handpick">品牌精选</el-menu-item>
+                    <el-menu-item index="slideshow">添加轮播图</el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title"><i class="el-icon-document"></i>数据管理</template>
                     <el-menu-item index="userList">用户列表</el-menu-item>
                     <el-menu-item index="orderList">订单列表</el-menu-item>
-                    <el-menu-item index="massList">社团列表</el-menu-item>
                     <el-menu-item index="pictureList">图片列表</el-menu-item>
-                    <el-menu-item index="adminList">管理员列表</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
                     <template slot="title"><i class="el-icon-plus"></i>添加数据</template>
@@ -122,7 +121,7 @@
                     _this.toLogout();
                     // _this.bool = false;
                     sessionStorage.removeItem('user');
-                    _this.$router.push('/');
+                    _this.$router.push('/login');
                     _this.$notify({
                         title: '成功',
                         message: '退出成功！',
@@ -182,23 +181,6 @@
         text-align: center;
         margin-left: 200px;
     }
-    /*.header-right {
-        width: 20%;
-        height: 100%;
-        float: right;
-    }
-    body > .el-container {
-        margin-bottom: 40px;
-    }
-      
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-        line-height: 260px;
-    }
-    .el-container:nth-child(7) .el-aside {
-        line-height: 320px;
-    }
-*/
     .icon {
         width:40px;
         height:40px;
@@ -225,5 +207,8 @@
     }
     .item {
       margin: 0 15px 0 0;
+    }
+    .el-main {
+        background: RGB(241,242,247);
     }
 </style>

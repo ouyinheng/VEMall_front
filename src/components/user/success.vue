@@ -61,7 +61,8 @@
 	padding-left: 20px;
 }
 .success .celebrate {
-	padding: 50px 10px;
+	padding: 140px 10px 0;
+	margin-bottom: 200px;
 }
 .success .celebrate .content {
 	width: 50%;

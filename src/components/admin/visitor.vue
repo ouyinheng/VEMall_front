@@ -37,7 +37,7 @@
                 let gender = this.$echarts.init(document.getElementById('gender'))
                 // 绘制图表
                 myChart.setOption({
-                    title: { text: '在Vue中使用echarts' },
+                    title: { text: '' },
                     tooltip: {},
                     xAxis: {
                         data: ["系统管理员","管理员","成员"]
@@ -62,6 +62,7 @@
                         ]}
                     ]
                 });
+               
             },
             ...mapActions([
               'getAllUser'
