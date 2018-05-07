@@ -4,7 +4,7 @@
 		<header class="title">热门商品</header>
 		<div class="hotCard" v-for="(item,index) in data" :key="index" @click="toBuyPage(index)">
 			<div style="height:420px;">
-				<img :src="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="400px">
+				<img v-lazy="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="400px">
 			</div>
 			<div>
 				<span>{{item.shortname}}</span></br>

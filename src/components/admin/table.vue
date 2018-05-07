@@ -25,13 +25,13 @@
 		          </el-form-item>
 		          <el-form-item label="商品图片">
 		            <!-- <span>{{ props.row.details }}</span> -->
-		             <img v-for="(item,index) in props.row.picture" :src="base+'/queryImages?img='+property+min+item" class="image" style="display:inline-block;width:78px;">
+		             <img v-for="(item,index) in props.row.picture" v-lazy="base+'/queryImages?img='+property+min+item" class="image" style="display:inline-block;width:78px;">
 		          </el-form-item>
 		          <el-form-item label="轮播图" v-if="property=='goods/slideshow/'">
 		          	<div class="noimg" @click="getId(props.row.id)" v-if="props.row.slideshow.length == 0">
 		          		请添加图片
 		          	</div>
-		          	<img v-for="(item,index) in props.row.slideshow" :src="base+'/queryImages?img=slideshow/'+item.url" class="image" style="display:inline-block;width:400px;"  @click="getId(props.row.id)">
+		          	<img v-for="(item,index) in props.row.slideshow" v-lazy="base+'/queryImages?img=slideshow/'+item.url" class="image" style="display:inline-block;width:400px;"  @click="getId(props.row.id)">
 		          	<el-dialog title="收货地址" :visible.sync="dialogTableVisible">
 					  	<el-upload
 	                      :action="base+'/admin/savefile/?slideshow'"

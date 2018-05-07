@@ -17,7 +17,8 @@
 			      label="图片"
 			      width="110">
 			      <template slot-scope="scope">
-				      	<img :src="base+'/queryImages?img=goods/allGoods/'+scope.row.displayImg" alt="" width="78px">
+				      	<img v-lazy="base+'/queryImages?img=goods/allGoods/'+scope.row.displayImg" alt="" width="78px">
+				      	  <!-- <img v-lazy="img.src" > -->
 			      </template>
 			    </el-table-column>
 			    <el-table-column

@@ -35,7 +35,7 @@
 		      header-align="center"
 		      width="150">
 		      <template slot-scope="scope">
-		      	<img :src="base+'/queryImages?img=goods/allGoods/'+scope.row.displayImg" width="78px" alt="">
+		      	<img v-lazy="base+'/queryImages?img=goods/allGoods/'+scope.row.displayImg" width="78px" alt="">
 		      </template>
 		    </el-table-column>
 		    <el-table-column

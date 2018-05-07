@@ -2,9 +2,9 @@
 	<div>
 		<div class="goodDetails">
 			<div class="left">
-				<img :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+mid+maxImg" alt=""  class="midImg">
+				<img v-lazy="base+'/queryImages?img=goods/'+goodDetails.property+'/'+mid+maxImg" alt=""  class="midImg">
 				<div class="minImg">
-					<img v-for="(item,index) in goodDetails.picture" :key="item" :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+min+item" alt="" @mousemove="toChange($event,item)">
+					<img v-for="(item,index) in goodDetails.picture" :key="item" v-lazy="base+'/queryImages?img=goods/'+goodDetails.property+'/'+min+item" alt="" @mousemove="toChange($event,item)">
 				</div>
 			</div>
 			<div class="right">

@@ -4,7 +4,7 @@
 		<el-row>
 		  <el-col :span="4" v-for="(item, index) in data" :key="index" style="margin:5px;">
 		    <el-card :body-style="{ padding: '0px' }">
-		      <img :src="item.url" class="image">
+		     <img v-lazy="item.url" class="image">
 		      <div style="padding: 14px;">
 		        <span>好吃的汉堡</span></br>
 		        <span style="font-size:14px;color:gray;">好吃的汉堡</span>

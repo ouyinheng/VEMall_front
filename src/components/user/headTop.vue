@@ -10,7 +10,7 @@
 			</div>
 			<span class="allGoods" @click="toSeeAllGoods">所有商品</span>
 			<el-dropdown v-if="bool==undefined?false:bool">
-                <img :src="base+'/queryImages?img='+user.icon_url" alt="lost" class="icon">
+                <img v-lazy="base+'/queryImages?img='+user.icon_url" alt="lost" class="icon">
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="myDetails">个人信息</el-dropdown-item>
                   <!-- <el-dropdown-item>切换账户</el-dropdown-item> -->
@@ -34,7 +34,7 @@
 			   		<el-checkbox-group v-model="checkedGoods"  class="goodsList">
 					    <el-checkbox v-for="(item,index) in treasure"  :label="item" :key="index">
 					    	<div class="left">
-					      		<img :src="base+'/queryImages?img=goods/allGoods/'+item.displayImg" alt="" width="78px">
+					      		<img v-lazy="base+'/queryImages?img=goods/allGoods/'+item.displayImg" alt="" width="78px">
 					        </div>
 					        <div class="right" style="width: 250px;">
 					      		<span style="display:block;overflow: hidden; text-overflow:ellipsis; white-space: nowrap; text-align:right;">{{item.shortname}}</span></br>

@@ -5,7 +5,7 @@
 		<div class="flexT">
 			<div class="handpickCard" v-for="(item,index) in comm" :key="index" @click="toBuyPage(index)">
 				<div style="margin-top: 30px;">
-					<img :src="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="150px">
+					<img v-lazy="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="150px">
 				</div>
 				<div style="margin-top: 20px;a">
 					<span>{{item.shortname}}</span></br>

@@ -54,7 +54,7 @@
                 <div class="header-right">
                     <span class="span">{{sysUserName}}</span>
                     <el-dropdown>
-                        <img :src="base+'/queryImages?img='+sysUserAvatar" alt="lost" class="icon">
+                        <img v-lazy="base+'/queryImages?img='+sysUserAvatar" alt="lost" class="icon">
                         <el-dropdown-menu slot="dropdown">
                           <el-dropdown-item>个人信息</el-dropdown-item>
                           <el-dropdown-item>切换账户</el-dropdown-item>

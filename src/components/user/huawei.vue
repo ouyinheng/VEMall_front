@@ -2,18 +2,18 @@
 	<div class="huawei">
 		<div class="left">
 			<div class="content" style="color:#fff;">
-				<img src="@/../static/images/hot/p20name.png" alt="图片不见了">
+				<img v-lazy="'@/../static/images/hot/p20name.png'" alt="图片不见了">
 				<span style="font-size:20px;">4000万莱卡双摄*,</br>AI摄影大师</span></br>
 				<div class="toKown">
 					<span style="font-size: 25px;margin-top: 500px;">了解更多</span>
 					<span class="el-icon-back turn" style="font-size: 25px;"></span>
 				</div>
 				<span style="font-size:10px;" class="smallFont">HUAWEI P20 Pro为后置4000万+2000万+800万像素徕卡三镜头</span>
-				<img :src="img" class="phone">
+				<img v-lazy="img" class="phone">
 			</div>
 		</div>
 		<div class="right">
-			<img src="@/../static/images/hot/be5bae72-bd0d-47be-8554-272cf573eea7.jpg" alt="图片不见了" width="450px">
+			<img v-lazy="'@/../static/images/hot/be5bae72-bd0d-47be-8554-272cf573eea7.jpg'" alt="图片不见了" width="450px">
 		</div>
 	</div>
 </template>

@@ -2,7 +2,7 @@
     <div class="massList">
       <el-col id="myCard" :span="4" v-for="(item, index) in massList" :key="index">
         <el-card :body-style="{ padding: '0px' }">
-          <img :src="base+'/queryImages?img='+item.icon_url" class="image">
+          <img v-lazy="base+'/queryImages?img='+item.icon_url" class="image">
           <div style="padding: 14px;">
             <span>{{item.name}}</span>
             <div class="bottom clearfix">

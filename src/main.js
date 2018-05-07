@@ -8,6 +8,20 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store/index';
 import echarts from 'echarts'
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload)
+
+// or with options
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'dist/error.png',
+  loading: 'dist/loading.gif',
+  attempt: 1
+})
+
+
+
 Vue.prototype.$echarts = echarts 
 // Vue.prototype.$http= axios
 Vue.use(ElementUI);

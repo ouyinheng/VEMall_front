@@ -15,7 +15,7 @@
               prop="icon_url"
               label="头像" >
               <template slot-scope="scope">
-                <img style="width:40px;height:40px;border-radius:50%;" :src="base+'/queryImages?img='+scope.row.icon_url">
+                <img style="width:40px;height:40px;border-radius:50%;" v-lazy="base+'/queryImages?img='+scope.row.icon_url">
               </template>
             </el-table-column>
             <el-table-column

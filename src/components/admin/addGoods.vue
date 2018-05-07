@@ -62,7 +62,7 @@
                       <i class="el-icon-plus"></i>
                     </el-upload>
                     <el-dialog :visible.sync="dialogVisible">
-                      <img width="100%" :src="dialogImageUrl" alt="">
+                      <img width="100%" v-lazy="dialogImageUrl" alt="">
                     </el-dialog>
                   </el-form-item>
                   <el-form-item label="商品详情" prop="details" style="margin-top: 50px;">

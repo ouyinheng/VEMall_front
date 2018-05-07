@@ -2,7 +2,7 @@
 	<div class="myMain">
 		<el-carousel :interval="5000" height="600px">
 		    <el-carousel-item v-for="(item,index) in data" :key="index">
-		      	<img :src="base+'/queryImages?img=slideshow/'+item.url" alt="" width="100%" height="100%" @click="toDetails(index)">
+		      	<img v-lazy="base+'/queryImages?img=slideshow/'+item.url" alt="" width="100%" height="100%" @click="toDetails(index)">
 		    </el-carousel-item>
 		</el-carousel>
 		<hot @toBuyPage="toBuyPage"></hot>
