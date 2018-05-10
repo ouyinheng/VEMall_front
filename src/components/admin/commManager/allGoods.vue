@@ -1,15 +1,15 @@
 <template>
-	<div class="hotGoods">
-		<span class="title">热门商品</span>
-		<mytable :list="data" :property="'goods/hotGoods/'"></mytable>
+	<div class="allGoods">
+		<span class="title">所有商品</span>
+		<mytable :list="data" :property="'goods/allGoods/'" @updateList="updateList"></mytable>
 	</div>
 </template>
 
 <script>
-	import { requestFileName,queryCommodity } from "@/api/api"
+	import { requestFileName,queryCommodity,editCommodity } from "@/api/api"
 	import mytable from '@/components/admin/table'
 	export default {
-		nama: 'hotGoods',
+		nama: 'allGoods',
 		data(){
 			return {
 				data:[],
@@ -21,7 +21,7 @@
 		methods:{
 			getData(){
 				const _this = this;
-				queryCommodity({property:'hotGoods'}).then(data=>{
+				queryCommodity({property:null}).then(data=>{
 					_this.data = data;
 					for(let i=0;i<data.length;i++){
 						let picture = [];
@@ -35,23 +35,22 @@
 								picture.push(url);
 				    		}
 				    	}
-				    	_this.data[i].picture = picture;
+				    	_this.data[i].picture = JSON.parse(JSON.stringify(picture));
 					}
 				}).catch()
+			},
+			updateList(data){
+				this.getData();
 			}
 		},
 		created(){
 			this.getData();
-			const _this = this;
-			requestFileName({param:'hotGoods'}).then(data=>{
-				_this.fileArr = data;
-			}).catch();
 		}
 	}
 </script>
 
 <style>
-.hotGoods {
+.allGoods {
 	width: 90%;
 	min-width: 1200px;
 	/*padding: 10px;*/
@@ -62,7 +61,7 @@
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
 }
-.hotGoods .title {
+.allGoods .title {
 	display: block;
 	width: 100%;
 	height: 60px;

@@ -7,7 +7,7 @@
 		<div class="flexT">
 			<div class="gooodsCard" v-for="(item,index) in showData" :key="index" @click="toBuyPage(index)">
 				<div style="margin-top: 30px;">
-					<img v-lazy="base+'/queryImages?img=goods/allGoods/'+item.displayImg" width="150px">
+					<img v-lazy="base+'/queryImages?img=goods/displayImg/'+item.displayImg" width="150px">
 				</div>
 				<div style="margin-top: 20px;a">
 					<span>{{item.shortname}}</span></br>
@@ -35,18 +35,22 @@
 				var data = this.data[index];
 				let picture = [];
 		    	for(let i=0;i<data.picture.length;i++){
-		    		let arr = data.picture[i].url.split('_');
-		    		if(arr[0] == '78'){
-		    			let url = '';
-		    			for(let j=2;j<arr.length;j++){
-		    				url += "_"+arr[j];
-		    			}
-						picture.push(url);
+		    		if(data.picture[i].url){
+		    			let arr = data.picture[i].url.split('_');
+			    		if(arr[0] == '78'){
+			    			let url = '';
+			    			for(let j=2;j<arr.length;j++){
+			    				url += "_"+arr[j];
+			    			}
+							picture.push(url);
+			    		}
+		    		} else {
+		    			picture = data.picture
 		    		}
 		    	}
 		    	data.picture = picture;
 				sessionStorage.setItem('goodDetails', JSON.stringify(data));
-				this.$router.push('/allGoods')
+				// this.$router.push('/allGoods')
 				window.open(window.location.origin + '/#/goodDetails')
 		    	// this.$router.push('/goodDetails')
 			},

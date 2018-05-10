@@ -38,7 +38,7 @@
 </template>
 
 <script>
-	import { base,addUserInfo,getUserInfo,editUserInfo,addUserOrder } from '@/api/api'
+	import { base,addUserInfo,getUserInfo,editUserSite,addUserOrder } from '@/api/api'
 	export default {
 		name: 'mySite',
 		data(){
@@ -76,11 +76,11 @@
 		    	if(this.userInfo[index].status != 1){
 		    		for(let i=0;i<this.userInfo.length;i++){
 		    			if(this.userInfo[i].status == 1){
-		    				editUserInfo({id:_this.userInfo[i].id,status:0}).then().catch()
+		    				editUserSite({id:_this.userInfo[i].id,status:0}).then().catch()
 		    			}
 		    		}
-		    		editUserInfo({id:_this.userInfo[index].id,status:1}).then(()=>{
-		    			_this.getUserInfo();
+		    		editUserSite({id:_this.userInfo[index].id,status:1}).then(()=>{
+		    			_this.editUserInfo();
 		    		}).catch();
 				}
 		    },

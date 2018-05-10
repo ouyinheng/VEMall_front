@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // export const base = 'http://47.93.220.254:3000';
-export const base = 'http://192.168.17.138:3000';
+export const base = 'http://192.168.17.139:3000';
 
 //登陆
 export const requestLogin = params => {return axios.post(`${base}/admin/login`,params).then(res => res.data);}
@@ -20,7 +20,7 @@ export const addUserInfo = params => {return axios.post(`${base}/admin/addUserIn
 export const getUserInfo = params => {return axios.post(`${base}/admin/getUserInfo`,params).then(res => res.data);}
 export const getUserSite = params => {return axios.post(`${base}/admin/getUserSite`,params).then(res => res.data);}
 //修改默认收货地址
-export const editUserInfo = params => {return axios.post(`${base}/admin/editUserInfo`,params).then(res => res.data);}
+export const editUserSite = params => {return axios.post(`${base}/admin/editUserSite`,params).then(res => res.data);}
 //添加订单
 export const addUserOrder = params => {return axios.post(`${base}/admin/addUserOrder`,params).then(res => res.data);}
 //查询订单
@@ -31,6 +31,8 @@ export const delUserOrder = params => {return axios.post(`${base}/admin/delUserO
 export const editUserOrder = params => {return axios.post(`${base}/admin/editUserOrder`,params).then(res => res.data);}
 //查询商品
 export const queryComm = params => {return axios.post(`${base}/admin/queryComm`,params).then(res => res.data);}
+export const commodityInfoDetails = params => {return axios.post(`${base}/admin/commodityInfoDetails`,params).then(res => res.data);}
+export const getCommDetails = params => {return axios.post(`${base}/admin/getCommDetails`,params).then(res => res.data);}
 //忘记密码
 export const toFindPwd = params => {return axios.post(`${base}/admin/findPwd`,params).then(res => res.data);}
 export const forgetPwd = params => {return axios.post(`${base}/admin/forgetPwd`,params).then(res => res.data);}
@@ -52,6 +54,7 @@ export const appendCommodity = params =>{return axios.post(`${base}/admin/addCom
 //查询商品
 export const queryCommodity = params => {return axios.post(`${base}/admin/queryCommodity`,params).then(res=>res.data)}
 export const getCom = params => {return axios.post(`${base}/admin/getCom`,params).then(res=>res.data)}
+export const editCommodity = params => {return axios.post(`${base}/admin/editCommodity`,params).then(res=>res.data)}
 //添加轮播图
 export const addSlideShow = params => {return axios.post(`${base}/admin/addSlideShow`,params).then(res=>res.data)}
 //查询轮播图

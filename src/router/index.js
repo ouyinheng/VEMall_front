@@ -2,50 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 /*共有*/
 import Login from '@/components/Login'
-import error from '@/components/404'
 import forget from '@/components/forget'
-/*系统管理员*/
-import Admin from '@/components/admin/admin'
-//首页
-import home from '@/components/admin/home'
 
-//商城管理
-import hotGoods from '@/components/admin/hotGoods'
-import handpick from '@/components/admin/handpick'
-//数据管理
-import userList from '@/components/admin/userList'
-import massList from '@/components/admin/massList'
-import pictureList from '@/components/admin/pictureList'
-import orderList from '@/components/admin/orderList'
 
-//添加数据
-import addGoods from '@/components/admin/addGoods'
-import addshop from '@/components/admin/addshop'
-import slideshow from '@/components/admin/addSlideShow'
-
-//图表
-import visitor from '@/components/admin/visitor'
-
-//设置
-
-//系统管理
-
-/*用户*/
-import userLogin from '@/components/user/login'
-import register from '@/components/user/register'
-import Show from '@/components/user/show'
-import myMain from '@/components/user/myMain'
-import goodDetails from '@/components/user/goodDetails'
-import allGoods from '@/components/user/allGoods'
-import order from '@/components/user/order'
-import success from '@/components/user/success'//个人信息
-import myDetails from '@/components/user/myDetails'//个人信息
-import myOrder from '@/components/user/myOrder'//个人信息
-import UserDetails from '@/components/user/UserDetails'//个人信息
-import mySite from '@/components/user/mySite'//个人信息
-import behindBuy from '@/components/user/behindBuy'//个人信息
-import oldTonew from '@/components/user/oldTonew'//个人信息
-import myNews from '@/components/user/myNews'//个人信息
 /*普通用户*/
 import Home from '@/components/elder/Home'
 import Test from '@/components/elder/test'
@@ -93,7 +52,8 @@ export default new Router({
           //用户信息界面
           path: '/myDetails',
           name: 'myDetails',
-          component: myDetails,
+          // component: myDetails,
+          component: resolve=> require(['@/components/user/myDetails'],resolve),
           meta:{requireAuth:true},
           children:[
               {
@@ -131,7 +91,15 @@ export default new Router({
     },{
       path: '/404',
       name: 'error',
-      component: resolve=> require(['@/components/404'],resolve)
+      component: resolve=> require(['@/components/errorPage/404'],resolve)
+    },{
+      path: '/403',
+      name: '403',
+      component: resolve=> require(['@/components/errorPage/403'],resolve)
+    },{
+      path: '/500',
+      name: '500',
+      component: resolve=> require(['@/components/errorPage/500'],resolve)
     },{//用户登录
       path: '/userLogin',
       name: 'userLogin',
@@ -154,47 +122,94 @@ export default new Router({
         {
           path: '/',
           name: 'home',
-          component: resolve=> require(['@/components/admin/home'],resolve)
+          component: resolve=> require(['@/components/admin/home'],resolve),
+          meta:{
+            keepAlive:false
+          }
         },{
           path:'/hotGoods',
           name: 'hotGoods',
-          component: resolve=> require(['@/components/admin/hotGoods'],resolve)
+          component: resolve=> require(['@/components/admin/commManager/hotGoods'],resolve),
+          meta:{
+            keepAlive:false
+          }
         },{
           path:'/handpick',
           name: 'handpick',
-          component: resolve=> require(['@/components/admin/handpick'],resolve)
+          component: resolve=> require(['@/components/admin/commManager/handpick'],resolve),
+          meta:{
+            keepAlive:false
+          }
         },{
-          path: '/userList',
-          name: 'userList',
-          component: resolve=> require(['@/components/admin/userList'],resolve)
-        },{
-          path: '/massList',
-          name: 'massList',
-          component: resolve=> require(['@/components/admin/massList'],resolve)
-        },{
-          path: '/pictureList',
-          name: 'pictureList',
-          component: resolve=> require(['@/components/admin/pictureList'],resolve)
-        },{
-          path: '/orderList',
-          name: 'orderList',
-          component: resolve=> require(['@/components/admin/orderList'],resolve)
-        },{
-          path: '/addGoods',
-          name: 'addGoods',
-          component: resolve=> require(['@/components/admin/addGoods'],resolve)
-        },{
-          path: '/addshop',
-          name: 'addshop',
-          component: resolve=> require(['@/components/admin/addshop'],resolve)
+          path:'/allGoodsAdmin',
+          name: 'allGoodsAdmin',
+          component: resolve=> require(['@/components/admin/commManager/allGoods'],resolve),
+          meta:{
+            keepAlive:false
+          }
         },{
           path: '/slideshow',
           name: 'slideshow',
-          component: resolve=> require(['@/components/admin/addSlideShow'],resolve)
+          component: resolve=> require(['@/components/admin/commManager/addSlideShow'],resolve),
+          meta:{
+            keepAlive:false
+          }
+        },{
+          path: '/userList',
+          name: 'userList',
+          component: resolve=> require(['@/components/admin/userList'],resolve),
+          meta:{
+            keepAlive:false
+          }
+        },{
+          path: '/massList',
+          name: 'massList',
+          component: resolve=> require(['@/components/admin/massList'],resolve),
+          meta:{
+            keepAlive:false
+          }
+        },{
+          path: '/pictureList',
+          name: 'pictureList',
+          component: resolve=> require(['@/components/admin/pictureList'],resolve),
+          meta:{
+            keepAlive:false
+          }
+        },{
+          path: '/orderList',
+          name: 'orderList',
+          component: resolve=> require(['@/components/admin/orderList'],resolve),
+          meta:{
+            keepAlive:false
+          }
+        },{
+          path: '/addGoods',
+          name: 'addGoods',
+          component: resolve=> require(['@/components/admin/addGoods'],resolve),
+          meta:{
+            keepAlive:false
+          }
+        },{
+          path: '/addshop',
+          name: 'addshop',
+          component: resolve=> require(['@/components/admin/addshop'],resolve),
+          meta:{
+            keepAlive:false
+          }
         },{
           path: '/visitor',
           name: 'visitor',
-          component: resolve=> require(['@/components/admin/visitor'],resolve)
+          component: resolve=> require(['@/components/admin/visitor'],resolve),
+          meta:{
+            keepAlive:true
+          }
+        },{
+          path: '/income',
+          name: 'income',
+          component: resolve=> require(['@/components/admin/income'],resolve),
+          meta:{
+            keepAlive:true
+          }
         }
       ]
     },{

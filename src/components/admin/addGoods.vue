@@ -30,18 +30,12 @@
                   <el-form-item label="发货地区" prop="region">
                       <myaddress @getAddressData="getAddressData"></myaddress>
                   </el-form-item>
-                  <el-form-item label="商品性质" prop="property">
-                      <el-radio-group v-model="ruleForm.property" size="small" >
-                          <el-radio border v-model="ruleForm.property" :label="item" v-for="(item,index) in propertys" :key="index" @change="upIsUpload">{{item}}</el-radio>
-                      </el-radio-group>
-                  </el-form-item>
                   <el-form-item label="首页图片">
                     <el-upload
-                      :action="base+'/admin/savefile/?'+'goods/allGoods'"
+                      :action="base+'/admin/savefile/?'+'goods/displayImg'"
                       list-type="picture-card"
                       :file-list="fileList"
                       :limit='1'
-                      v-if="isUpload"
                       :onSuccess="uploadSuccess1"
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove">
@@ -50,11 +44,10 @@
                   </el-form-item>
                   <el-form-item label="商品图片">
                     <el-upload
-                      :action="base+'/admin/savefile/?'+upParam"
+                      :action="base+'/admin/savefile/?'+'goods/allGoods'"
                       list-type="picture-card"
                       :file-list="fileArr"
                       multiple
-                      v-if="isUpload"
                       :drag="true"
                       :onSuccess="uploadSuccess"
                       :on-preview="handlePictureCardPreview"
@@ -106,7 +99,7 @@
                     num: 0,       //数量
                     astrict: 0,   //没人限制购买量
                     region: '',   //发货地区
-                    property: '', //活动性质
+                    property: 'allGoods', //活动性质
                     details: '',  //商品详情
                     displayImg:'',
                     picture: []   //商品图片路径
@@ -155,6 +148,7 @@
                           _this.$refs[formName].resetFields();
                           _this.fileArr = [];
                           _this.fileList = [];
+                          this.ruleForm.picture = [];
                       }).catch()
                   } else {
                     this.$message.error('添加失败');

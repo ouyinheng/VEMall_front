@@ -1,15 +1,15 @@
 <template>
-	<div class="handpick">
-		<span class="title">热门商品</span>
-		<mytable :list="data" :property="'goods/handpick/'"></mytable>
+	<div class="slideshow">
+		<span class="title">轮播图</span>
+		<mytable :list="data" :property="'goods/slideshow/'" @updateList="updateList"></mytable>
 	</div>
 </template>
 
 <script>
-	import { requestFileName,queryCommodity } from "@/api/api"
+	import { queryCommodity,addSlideShow,querySlideShow,editCommodity } from "@/api/api"
 	import mytable from '@/components/admin/table'
 	export default {
-		name: 'handpick',
+		name: 'slideshow',
 		data(){
 			return {
 				data:[]
@@ -19,9 +19,12 @@
 			mytable
 		},
 		methods:{
+			toBuyPage(index){
+				console.log(index)
+			},
 			getData(){
 				const _this = this;
-				queryCommodity({property:'handpick'}).then(data=>{
+				queryCommodity({property:'slideshow'}).then(data=>{
 					_this.data = data;
 					for(let i=0;i<data.length;i++){
 						let picture = [];
@@ -35,31 +38,35 @@
 								picture.push(url);
 				    		}
 				    	}
-				    	_this.data[i].picture = picture;
+				    	_this.data[i].picture = JSON.parse(JSON.stringify(picture));
 					}
+				}).then(()=>{
+					_this.getSlideShow();
 				}).catch()
 			},
-			tableRowClassName({row, rowIndex}) {
-		        if (rowIndex === 1) {
-		          return 'warning-row';
-		        } else if (rowIndex === 3) {
-		          return 'success-row';
-		        }
-		        return '';
-		    }
+			getSlideShow(){
+				const _this = this;
+				for(let i=0;i<_this.data.length;i++){
+					querySlideShow({id:_this.data[i].id}).then(data=>{
+						_this.data[i].slideshow = data;
+					}).catch(error=>{
+						console.log(error);
+					})
+				}
+			},
+			updateList(data){
+				this.getData();
+			}
+
 		},
 		created(){
 			this.getData();
-			const _this = this;
-			requestFileName({param:'handpick'}).then(data=>{
-				_this.fileArr = data;
-			}).catch();
 		}
 	}
 </script>
 
 <style>
-.handpick {
+.slideshow {
 	width: 90%;
 	min-width: 1200px;
 	/*padding: 10px;*/
@@ -70,7 +77,7 @@
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
 }
-.handpick .title {
+.slideshow .title {
 	display: block;
 	width: 100%;
 	height: 60px;

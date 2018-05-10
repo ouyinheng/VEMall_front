@@ -2,9 +2,9 @@
 	<div>
 		<div class="goodDetails">
 			<div class="left">
-				<img v-lazy="base+'/queryImages?img=goods/'+goodDetails.property+'/'+mid+maxImg" alt=""  class="midImg">
+				<img v-lazy="base+'/queryImages?img=goods/allGoods/'+mid+maxImg" alt=""  class="midImg">
 				<div class="minImg">
-					<img v-for="(item,index) in goodDetails.picture" :key="item" v-lazy="base+'/queryImages?img=goods/'+goodDetails.property+'/'+min+item" alt="" @mousemove="toChange($event,item)">
+					<img v-for="(item,index) in goodDetails.picture" :key="item" v-lazy="base+'/queryImages?img=goods/allGoods/'+min+item" alt="" @mousemove="toChange($event,item)">
 				</div>
 			</div>
 			<div class="right">
@@ -18,13 +18,17 @@
 				</header>
 			</div>
 		</div>
-		<!-- <img :src="base+'/queryImages?img=goods/'+goodDetails.property+'/'+max+maxImg" alt="" id="maxImg"> -->
+		<div class="details">
+			<p v-for="(item,index) in picture" :key="index">
+				<img v-lazy="base+'/queryImages?img=goods/details/'+item.url" alt="" width="100%">
+			</p>
+		</div>
 
 	</div>
 </template>
 
 <script>
-	import { base } from '@/api/api'
+	import { base,getCommDetails } from '@/api/api'
 	import $ from 'jquery'
 	export default {
 		name: 'goodDetails',
@@ -37,7 +41,8 @@
 				max:'800_800',
 				maxImg:'',
 				goodDetails:'',
-				bool:true
+				bool:true,
+				picture:[]
 			}
 		},
 		methods:{
@@ -83,7 +88,10 @@
 			this.$box2 = $("#box2");
 			this.$mark = $("#mark");
 			this.$img = $("#box2").children('img');
-			console.log(this.$box2);
+			const _this = this;
+			getCommDetails({id:this.goodDetails.id}).then(data=>{
+				_this.picture = data;
+			}).catch()
 		}
 	}
 </script>
@@ -92,7 +100,7 @@
 .goodDetails {
 	width: 90%;
 	min-width: 1200px;
-	max-width: 1300px;
+	/*max-width: 1300px;*/
 	margin: 10px auto;
 	background: #fff;
 	display: flex;
@@ -140,5 +148,23 @@
 }
 .goodDetails .right .title .el-button {
 	margin-top: 120px;
+}
+.goodDetails .details {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.details p{
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.details p img {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
 }
 </style>

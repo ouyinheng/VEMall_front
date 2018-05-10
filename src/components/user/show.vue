@@ -209,6 +209,8 @@
 	padding-bottom: 80px;
     background-color: #E9EEF3;
     text-align: center;
+    padding-left: 0;
+    padding-right: 0;
     /*color: #333;
     line-height: 500px;*/
 }

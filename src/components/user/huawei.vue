@@ -2,7 +2,7 @@
 	<div class="huawei">
 		<div class="left">
 			<div class="content" style="color:#fff;">
-				<img img="@/../static/images/hot/p20name.png" alt="图片不见了">
+				<img src="@/../static/images/hot/p20name.png" alt="图片不见了">
 				<span style="font-size:20px;">4000万莱卡双摄*,</br>AI摄影大师</span></br>
 				<div class="toKown">
 					<span style="font-size: 25px;margin-top: 500px;">了解更多</span>

@@ -15,6 +15,7 @@
                 <el-submenu index="2">
                     <template slot="title"><i class="el-icon-edit"></i>商城管理</template>
                     <!-- <el-menu-item index="uploadImg">上传图片</el-menu-item> -->
+                    <el-menu-item index="allGoodsAdmin">所有商品</el-menu-item>
                     <el-menu-item index="hotGoods">热门商品</el-menu-item>
                     <el-menu-item index="handpick">品牌精选</el-menu-item>
                     <el-menu-item index="slideshow">添加轮播图</el-menu-item>
@@ -33,6 +34,7 @@
                 <el-submenu index="5">
                     <template slot="title"><i class="el-icon-star-on"></i>图表</template>
                     <el-menu-item index="visitor">用户分布</el-menu-item>
+                    <el-menu-item index="income">收入</el-menu-item>
                     <!-- <el-menu-item index="newMember">用户数据</el-menu-item> -->
                 </el-submenu>
                
@@ -71,8 +73,11 @@
             <el-main style="margin-left: 200px;">
                 <transition name="el-fade-in-linear">
                     <keep-alive>
-                        <router-view></router-view>
+                       <router-view v-if="$route.meta.keepAlive"></router-view>
                     </keep-alive>
+                </transition>
+                <transition name="el-fade-in-linear">
+                    <router-view v-if="!$route.meta.keepAlive"></router-view>
                 </transition>
             </el-main>
           </el-container>

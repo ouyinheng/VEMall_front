@@ -35,20 +35,24 @@
 			toBuyPage(data){
 				let picture = [];
 		    	for(let i=0;i<data.picture.length;i++){
-		    		let arr = data.picture[i].url.split('_');
-		    		if(arr[0] == '78'){
-		    			let url = '';
-		    			for(let j=2;j<arr.length;j++){
-		    				url += "_"+arr[j];
-		    			}
-						picture.push(url);
+		    		if(data.picture[i].url){
+		    			let arr = data.picture[i].url.split('_');
+			    		if(arr[0] == '78'){
+			    			let url = '';
+			    			for(let j=2;j<arr.length;j++){
+			    				url += "_"+arr[j];
+			    			}
+							picture.push(url);
+			    		}
+		    		} else {
+		    			picture = data.picture
 		    		}
 		    	}
 		    	data.picture = picture;
 		    	// this.$emit('toBuyPage',data);
 		    	sessionStorage.setItem('goodDetails', JSON.stringify(data));
 		    	window.open(window.location.origin + '/#/goodDetails')
-				this.$router.push('/')
+				// this.$router.push('/')
 		    	// this.$router.push('/goodDetails')
 			},
 			getSlideShow(){

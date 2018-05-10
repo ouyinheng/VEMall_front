@@ -4,10 +4,25 @@
   			<span @click="toHome" class="home">首页</span>
   		</div>
   		<div class="right">
-			<div class="search">
-				<input type="text" name="search">
-				<span class="el-icon-search"></span>
-			</div>
+				<!-- <input type="text" name="search" class="input"> -->
+			    <el-autocomplete
+				  popper-class="my-autocomplete"
+				  v-model="state3"
+				  :fetch-suggestions="querySearch"
+				  placeholder="请输入内容"
+				  :trigger-on-focus="false"
+				  @select="handleSelect">
+				  <i
+				    class="el-icon-edit el-input__icon"
+				    slot="suffix"
+				    @click="handleIconClick">
+				  </i>
+				  <template slot-scope="{ item }">
+				    <div class="name">{{ item.longname }}</div>
+				    <!-- <span class="addr">{{ item.address }}</span> -->
+				  </template>
+				</el-autocomplete>
+
 			<span class="allGoods" @click="toSeeAllGoods">所有商品</span>
 			<el-dropdown v-if="bool==undefined?false:bool">
                 <img v-lazy="base+'/queryImages?img='+user.icon_url" alt="lost" class="icon">
@@ -56,7 +71,7 @@
 </template>
 
 <script>
-	import { base } from '@/api/api'
+	import { base,queryCommodity } from '@/api/api'
 	export default {
 		name: 'headTop',
 		data(){
@@ -67,8 +82,10 @@
 				max:'800_800',
 				num:0,
 				checkedGoods:[],
-				userInfo:{}
+				userInfo:{},
 				// allPrice:0
+				restaurants: [],
+		        state3: ''
 			}
 		},
 		computed:{
@@ -98,8 +115,46 @@
 		    },
 		    toSeeAllGoods(){
 		    	this.$router.push('/allGoods');
+		    },
+		    querySearch(queryString, cb) {
+		        var restaurants = this.restaurants;
+		        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+		        // 调用 callback 返回建议列表的数据
+		        cb(results);
+		      },
+		    createFilter(queryString) {
+		        return (restaurant) => {
+		          return (restaurant.longname.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+		        };
+		    },
+		    handleSelect(item) {
+		        let data = item;
+				let picture = [];
+		    	for(let i=0;i<data.picture.length;i++){
+		    		let arr = data.picture[i].url.split('_');
+		    		if(arr[0] == '78'){
+		    			let url = '';
+		    			for(let j=2;j<arr.length;j++){
+		    				url += "_"+arr[j];
+		    			}
+						picture.push(url);
+		    		}
+		    	}
+		    	data.picture = picture;
+				sessionStorage.setItem('goodDetails', JSON.stringify(data));
+				// this.$router.push('/allGoods')
+				window.open(window.location.origin + '/#/goodDetails')
+		    },
+		    handleIconClick(ev) {
+		        // console.log(ev);
 		    }
 		},
+	    mounted() {
+	      	const _this = this;
+			queryCommodity({property:null}).then(data=>{
+	      		_this.restaurants = data;
+			}).catch()
+	    },
 		created(){
 			// console.log(this.treasure,this.user);
 			if(this.treasure != null){
@@ -224,7 +279,7 @@
 		background-color: #fff;
 		
 	}
-	.search input {
+	.right .myinput {
 		display: block;
 		box-sizing: border-box;
 		width: 80%;
@@ -266,4 +321,20 @@
     .icon:hover,.headTop .right .search span:hover {
         cursor: pointer;
     }
+	  .my-autocomplete li {
+	    line-height: normal;
+	    padding: 7px;
+		}
+	    .my-autocomplete .name {
+	      text-overflow: ellipsis;
+	      overflow: hidden;
+	    }
+	    .my-autocomplete .addr {
+	      font-size: 12px;
+	      color: #b4b4b4;
+	    }
+
+	    .my-autocomplete .highlighted .addr {
+	      color: #ddd;
+	    }
 </style>
