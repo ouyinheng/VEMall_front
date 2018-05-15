@@ -29,7 +29,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 @keyframes error404animation {
   0% {
     transform: rotateZ(0deg);
@@ -50,41 +50,42 @@ export default {
     transform: rotateZ(0deg);
   }
 }
-.error404-body-con {
+.error404 {
+  &-body-con {
     width: 700px;
     height: 500px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-
-.error404-body-con-title {
-    text-align: center;
-    font-size: 240px;
-    font-weight: 700;
-    color: #2d8cf0;
-    height: 260px;
-    line-height: 260px;
-    margin-top: 40px;
-}
-.error404-body-con .error404-body-con-title span {
-    display: inline-block;
-    color: #19be6b;
-    font-size: 230px;
-    animation: error404animation 3s ease 0s infinite alternate;
-}
-.error404-body-con-message{
-    display: block;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 500;
-    letter-spacing: 12px;
-    color: #dddde2;
-}
-.error404--btn-con {
+    &-title {
+      text-align: center;
+      font-size: 240px;
+      font-weight: 700;
+      color: #2d8cf0;
+      height: 260px;
+      line-height: 260px;
+      margin-top: 40px;
+      span {
+        display: inline-block;
+        color: #19be6b;
+        font-size: 230px;
+        animation: error404animation 3s ease 0s infinite alternate;
+      }
+    }
+    &-message {
+      display: block;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 12px;
+      color: #dddde2;
+    }
+  }
+  &-btn-con {
     text-align: center;
     padding: 20px 0;
     margin-bottom: 40px;
+  }
 }
 </style>

@@ -24,11 +24,11 @@
                     <template slot="title"><i class="el-icon-document"></i>数据管理</template>
                     <el-menu-item index="userList">用户列表</el-menu-item>
                     <el-menu-item index="orderList">订单列表</el-menu-item>
-                    <el-menu-item index="pictureList">图片列表</el-menu-item>
+                    <!-- <el-menu-item index="pictureList">图片列表</el-menu-item> -->
                 </el-submenu>
                 <el-submenu index="4">
                     <template slot="title"><i class="el-icon-plus"></i>添加数据</template>
-                    <el-menu-item index="addShop">添加商铺</el-menu-item>
+                    <!-- <el-menu-item index="addShop">添加商铺</el-menu-item> -->
                     <el-menu-item index="addGoods">添加商品</el-menu-item>
                 </el-submenu>
                 <el-submenu index="5">
@@ -38,16 +38,15 @@
                     <!-- <el-menu-item index="newMember">用户数据</el-menu-item> -->
                 </el-submenu>
                
-                <el-submenu index="6">
+                <!-- <el-submenu index="6">
                     <template slot="title"><i class="el-icon-setting"></i>设置</template>
                     <el-menu-item index="adminSet">管理员设置</el-menu-item>
-                    <!-- <el-menu-item index="sendMessage">发送通知</el-menu-item> -->
-                </el-submenu>
+                </el-submenu> -->
                 <el-submenu index="7">
                     <template slot="title"><i class="el-icon-warning"></i>系统管理</template>
-                    <el-menu-item index="explain">权限配置</el-menu-item>
-                    <el-menu-item index="explain">基本设置</el-menu-item>
-                    <el-menu-item index="explain">系统日志</el-menu-item>
+                    <!-- <el-menu-item index="explain">权限配置</el-menu-item> -->
+                    <!-- <el-menu-item index="place">基本设置</el-menu-item> -->
+                    <el-menu-item index="syslog">系统日志</el-menu-item>
                 </el-submenu>
             </el-menu>
           </el-aside>
@@ -58,15 +57,15 @@
                     <el-dropdown>
                         <img v-lazy="base+'/queryImages?img='+sysUserAvatar" alt="lost" class="icon">
                         <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item>个人信息</el-dropdown-item>
-                          <el-dropdown-item>切换账户</el-dropdown-item>
+                          <!-- <el-dropdown-item>个人信息</el-dropdown-item> -->
+                          <!-- <el-dropdown-item>切换账户</el-dropdown-item> -->
                           <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                    <el-badge :value="12" class="item">
+                    <!-- <el-badge :value="12" class="item">
                         <span class="el-icon-message" style="font-size:22px"></span>
-                    </el-badge>
-                    <span class="iconfont icon-password lock" title="锁屏"></span>
+                    </el-badge> -->
+                    <!-- <span class="iconfont icon-password lock" title="锁屏"></span> -->
                 </div>
                 
             </el-header>
@@ -109,13 +108,8 @@
                 this.$router.push('/404');
             }*/
         },
-        mounted() {
-            var user = sessionStorage.getItem('user');
-            if (user) {
-              user = JSON.parse(user);
-              this.sysUserName = user.username || '';
-              this.sysUserAvatar = user.icon_url || '';
-            }
+        mounted(){
+            
         },
         methods:{
             logout(){
@@ -148,6 +142,14 @@
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
+            }
+        },
+        created(){
+            var user = sessionStorage.getItem('user');
+            if (user) {
+              user = JSON.parse(user);
+              this.sysUserName = user.username || '';
+              this.sysUserAvatar = user.icon_url || '';
             }
         }
     }

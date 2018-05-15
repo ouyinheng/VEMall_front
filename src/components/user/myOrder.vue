@@ -19,7 +19,10 @@
 				</el-steps>
 				<div class="status">
 					<h3>订单状态{{props.row.orderStatus}}</h3>
-					<p>您的付款时间还有 22 小时 28 分 17 秒 ，超时后订单将自动取消。</p>
+					<p v-if="props.row.status == 0">请在24小时内付款,超时将取消订单!</p>
+					<!-- <p>{{ props.row.ordertime.split('_')}}</p> -->
+					<!--  -->
+					<!-- <p>您的付款时间还有 {{props.row.ordertime.split('_')[3]-timer.hours}}小时 {{props.row.ordertime.split('_')[4]-timer.minutes}} 分 ，超时后订单将自动取消。</p> -->
 				</div>
 				<div class="status">
 					<h3>收货地址</h3>
@@ -82,6 +85,7 @@
 		      	<span v-if="scope.row.orderStatus==1">支付审核中...</span>
 		      	<span v-if="scope.row.orderStatus==2"><el-button type="success"  @click="nowBuy(item[0].orderid,3)">确认收货</el-button></span>
 		      	<span v-if="scope.row.orderStatus==3">交易完成</span>
+		      	<span v-if="scope.row.orderStatus==10">交易取消</span>
 		      </template>
 		    </el-table-column>
 		  </el-table>
@@ -97,7 +101,17 @@
 			return {
 				base:base,
 				commList:[],
+				timer: {
+					fullYear:0,
+					month:0,
+					day:0,
+					hours:0,
+					minutes:0
+				}
 			}
+		},
+		computed:{
+			
 		},
 		methods:{
 			tableRowClassName({row, rowIndex}) {
@@ -180,11 +194,23 @@
 		},
 		created(){
 			this.queryComm();
+			const _this = this;
+			/*setInterval(function(){
+				let date = new Date();
+				_this.timer = {
+					fullYear:date.getFullYear(),
+					month:date.getMonth(),
+					day:date.getDay(),
+					hours:date.getHours(),
+					minutes:date.getMinutes()
+				}
+
+			},1000)*/
 		}
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .myOrder {
 	width: 1000px;
 	margin: 0px 0 0 20px;
@@ -193,45 +219,46 @@
 	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
+	.title {
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		font-size: 20px;
+		border-bottom: 1px solid #dcdcdc;
+		box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
+		border-color: rgba(0,0,0,.14);
+		text-align: left;
+		padding-left: 20px;
+	}
+	#title {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #dcdcdc;
+		border-color: rgba(0,0,0,.14);
+		font-size: 20px;
+		text-align: left;
+		padding-left: 20px;
+	}
+	.status{
+		background: #f6f6f6;
+		border: 1px solid #dadada;
+		border-radius: 5px;
+		padding: 22px 30px 20px;
+		margin: 20px 30px 30px;
+		line-height: 38px;
+		text-align:left;
+		>p {
+			border-top: 1px solid #dcdcdc;
+			margin-top: 20px;
+			padding-top: 26px;
+		}
+	}
 }
-.myOrder .title {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	font-size: 20px;
-	border-bottom: 1px solid #dcdcdc;
-	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
-	border-color: rgba(0,0,0,.14);
-	text-align: left;
-	padding-left: 20px;
-}
-#title {
-	display: block;
-	box-sizing: border-box;
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	margin-bottom: 20px;
-	border-bottom: 1px solid #dcdcdc;
-	border-color: rgba(0,0,0,.14);
-	font-size: 20px;
-	text-align: left;
-	padding-left: 20px;
-}
-.myOrder .status{
-	background: #f6f6f6;
-	border: 1px solid #dadada;
-	border-radius: 5px;
-	padding: 22px 30px 20px;
-	margin: 20px 30px 30px;
-	line-height: 38px;
-	text-align:left;
-}
-.myOrder .status>p {
-	border-top: 1px solid #dcdcdc;
-	margin-top: 20px;
-	padding-top: 26px;
-}
+/* 
 .hotCard {
 	display: inline-block;
 	width: 100%;
@@ -245,6 +272,6 @@
 	box-shadow: 0 10px 15px rgba(0,0,0,0.07);
 	transform: translate3d(0px,-2px,0px);
 	z-index: 2;
-}
+} */
 
 </style>

@@ -2,9 +2,25 @@ import axios from 'axios';
 
 // export const base = 'http://47.93.220.254:3000';
 export const base = 'http://192.168.17.139:3000';
-
+export function reqStatus(data) {
+	return new Promise((resolve,reject)=>{
+		switch(data){
+			case 403:
+				this.$router.push('/403');
+				break;
+			case 404:
+				this.$router.push('/404');
+				break;
+			case 500:
+				this.$router.push('/500');
+				break;
+		}
+	})
+}
 //登陆
-export const requestLogin = params => {return axios.post(`${base}/admin/login`,params).then(res => res.data);}
+export const requestLogin = params => {return axios.post(`${base}/admin/login`,params).then(res =>res.data);}
+//登出
+export const requestLogout = params => {return axios.post(`${base}/admin/logout`,params).then(res => res.data);}
 //管理员登录
 export const requestAdminLogin = params => {return axios.post(`${base}/admin/adminLogin`,params).then(res => res.data);}
 // 图形验证
@@ -30,9 +46,11 @@ export const delUserOrder = params => {return axios.post(`${base}/admin/delUserO
 //修改订单数据
 export const editUserOrder = params => {return axios.post(`${base}/admin/editUserOrder`,params).then(res => res.data);}
 //查询商品
-export const queryComm = params => {return axios.post(`${base}/admin/queryComm`,params).then(res => res.data);}
-export const commodityInfoDetails = params => {return axios.post(`${base}/admin/commodityInfoDetails`,params).then(res => res.data);}
-export const getCommDetails = params => {return axios.post(`${base}/admin/getCommDetails`,params).then(res => res.data);}
+export const queryComm = params => {return axios.post(`${base}/comm/queryComm`,params).then(res => res.data);}
+export const commodityInfoDetails = params => {return axios.post(`${base}/comm/commodityInfoDetails`,params).then(res => res.data);}
+export const getCommDetails = params => {return axios.post(`${base}/comm/getCommDetails`,params).then(res => res.data);}
+export const queryCommProp = () => {return axios.get(`${base}/comm/queryCommProp`).then(res => res.data);}
+
 //忘记密码
 export const toFindPwd = params => {return axios.post(`${base}/admin/findPwd`,params).then(res => res.data);}
 export const forgetPwd = params => {return axios.post(`${base}/admin/forgetPwd`,params).then(res => res.data);}
@@ -49,18 +67,24 @@ export const requestImages = () => {return axios.get(`${base}/admin/queryImages`
 export const requestAllMass = () => {return axios.post(`${base}/mass/findAll`).then(res=>res.data)}
 
 //添加商品
-export const appendCommodity = params =>{return axios.post(`${base}/admin/addCommodity`,params).then(res=>res.data)}
+export const appendCommodity = params =>{return axios.post(`${base}/comm/addCommodity`,params).then(res=>res.data)}
 
 //查询商品
-export const queryCommodity = params => {return axios.post(`${base}/admin/queryCommodity`,params).then(res=>res.data)}
+export const queryCommodity = params => {return axios.post(`${base}/comm/queryCommodity`,params).then(res=>res.data)}
 export const getCom = params => {return axios.post(`${base}/admin/getCom`,params).then(res=>res.data)}
-export const editCommodity = params => {return axios.post(`${base}/admin/editCommodity`,params).then(res=>res.data)}
+export const editCommodity = params => {return axios.post(`${base}/comm/editCommodity`,params).then(res=>res.data)}
 //添加轮播图
-export const addSlideShow = params => {return axios.post(`${base}/admin/addSlideShow`,params).then(res=>res.data)}
+export const addSlideShow = params => {return axios.post(`${base}/comm/addSlideShow`,params).then(res=>res.data)}
 //查询轮播图
-export const querySlideShow = params => {return axios.post(`${base}/admin/querySlideShow`,params).then(res=>res.data)}
+export const querySlideShow = params => {return axios.post(`${base}/comm/querySlideShow`,params).then(res=>res.data)}
 //
-export const queryAllSlideShow= params => {return axios.post(`${base}/admin/queryAllSlideShow`,params).then(res=>res.data)}
+export const queryAllSlideShow= params => {return axios.post(`${base}/comm/queryAllSlideShow`,params).then(res=>res.data)}
 
 //获取文件加下的文件名目录
 export const requestFileName = params =>{return axios.post(`${base}/admin/getFiles`,params).then(res=>res.data)}
+
+
+/*系统日志*/
+export const requestAllLog = () =>{return axios.post(`${base}/admin/getlog`).then(res=>res.data)}
+//获取天气
+// export const getWether = () =>{return axios.post(`${base}/admin/getlog`).then(res=>res.data)}

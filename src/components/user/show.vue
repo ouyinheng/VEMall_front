@@ -25,19 +25,14 @@
 			  		</div>
 			  		<div>
 			  			<span>关于我们</span>
-						<span>公司介绍</span>
-						<span>华为商城简介</span>
-						<span>华为线下门店</span>
-						<span>荣耀线下门店</span>
-						<span>诚征英才</span>
+			  			<span><a href="https://ouyinheng.github.io/" target="_blank">个人博客</a></span>
+			  			<span><a href="https://github.com/ouyinheng/VEMall_front" target="_blank">github</a></span>
+			  			<span><a href="https://gitee.com/ouyinheng/VEMall" target="_blank">gitee</a></span>
 			  		</div>
 			  		<div>
 			  			<span>友情链接</span>
-			  			<span>华为商城手机版</span>
-						<span>华为官网</span>
-						<span>荣耀官网</span>
-						<span>花粉俱乐部</span>
-						<span>网站地图</span>
+			  			<span><a href="https://cn.vuejs.org/" target="_blank">vue</a></span>
+			  			<span><a href="http://element-cn.eleme.io/#/zh-CN/" target="_blank">Element-UI</a></span>
 			  		</div>
 		  		</div>
 		  	</footer>
@@ -60,7 +55,7 @@
 		    </el-form>
 		  <span slot="footer" class="dialog-footer">
 		    <el-button @click="dialogVisible = false">取 消</el-button>
-		    <el-button type="primary"  @click="onSubmit">确 定</el-button>
+		    <el-button type="primary" :disabled="loginBool"  @click="onSubmit">确 定</el-button>
 		  </span>
 		</el-dialog>
 	</div>
@@ -69,12 +64,30 @@
 <script>
 	import $ from 'jquery'
 	import gt from '@/assets/js/gt.js'
-	import { requestLogin } from '@/api/api'
+	import { requestLogin,requestLogout } from '@/api/api'
 	import headTop from '@/components/user/headTop'
 	import crypto from 'crypto'
 	export default {
 		name: 'show',
 		data(){
+			var validateUserName = (rule, value, callback) => {
+				const _this = this;
+		        if (!value) {
+		        	_this.loginBool = true;
+		          	return callback(new Error('账号不能为空'));
+		        }
+		        setTimeout(() => {
+					var regex=/^[_A-Za-z]{5,10}[0-9A-Za-z]$/g
+					var a=regex.test(value);
+		          	if (!a) {
+		          		_this.loginBool = true;
+		            	callback(new Error('只能含有字母,下划线开头,可包含数字,最小6位数,最大11位数'));
+		          	} else {
+		          		_this.loginBool = false;
+		            	callback();
+		          	}
+		        }, 1000);
+		    };
 			return {
 				mainShow:true,
 				detailShow:false,
@@ -84,6 +97,7 @@
 		          username: '',
 		          password: '',
 		        },
+		        loginBool:true,
 		        sendUser:{},
 		        sendBool:'',
 		        treasure:[],//商品
@@ -91,11 +105,10 @@
 		        rules2: {
 		          username: [
 		            { required: true, message: '请输入账号', trigger: 'blur' },
-		            //{ validator: validaePass }
+		            { validator: validateUserName, trigger: 'blur' }
 		          ],
 		          password: [
-		            { required: true, message: '请输入密码', trigger: 'blur' },
-		            //{ validator: validaePass2 }
+		            { required: true, message: '请输入密码', trigger: 'blur' }
 		          ]
 		        },
 		        checked: true
@@ -168,12 +181,19 @@
 		    },
 		    logout(){
 		    	this.$confirm('确认退出？').then(_ => {
-		    		sessionStorage.removeItem('user');
-		            this.sendBool = false;
-		    		this.sendUser = {};
-		    		this.mainShow = true;
-			    	this.detailShow = false;
-			    	this.orderShow = false;
+		    		var user = sessionStorage.getItem('user');
+		    		requestLogout({user:user}).then(data=>{
+		    			sessionStorage.removeItem('user');
+			            this.sendBool = false;
+			    		this.sendUser = {};
+			    		this.mainShow = true;
+				    	this.detailShow = false;
+				    	this.orderShow = false;
+				    	this.$router.push('/');
+		    		}).catch(error=>{
+
+		    		})
+		    		
 		        }).catch(_ => {});
 		    	
 		    }
@@ -188,22 +208,19 @@
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .el-header{
 	width: 100%;
 	height: 80px!important;
-    background-color: #B3C0D1;
-    color: #333;
     line-height: 80px;
-}
-.el-header {
-	position: fixed;
+    position: fixed;
 	top: 0;
 	left: 0;
+    color: #333;
 	background-color: RGB(3,3,3);
 	box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
 	z-index: 100;
-} 
+}
 .el-main {
 	margin-top: 80px;
 	padding-bottom: 80px;
@@ -211,37 +228,50 @@
     text-align: center;
     padding-left: 0;
     padding-right: 0;
-    /*color: #333;
-    line-height: 500px;*/
 }
 .myfooter {
 	width: 100%;
 	background: RGB(245,245,245);
-}
-.myfooter .mycenter {
-	width: 70%;
-	margin: 0 auto;
-    color: #333;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}
-.myfooter .mycenter>div {
-	width: 200px;
-	height: 180px;
-	padding: 10px 0;
-	text-align: left;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-.myfooter .mycenter>div>span:nth-of-type(1){
-	display: block;
-	margin: 10px 0;
-	color: #000;
-}
-.myfooter .mycenter>div>span {
-	font-size: 14px;
-	color: gray;
+	.mycenter {
+		width: 70%;
+		margin: 0 auto;
+	    color: #969696;
+	    font-size: 14px;
+	    font-style: normal;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		>div {
+			width: 200px;
+			height: 180px;
+			padding: 10px 0;
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+			// justify-content: space-between;
+			span {
+				display: block;
+				padding: 4px 0;
+				a {
+					text-decoration: none;
+					color: #969696;
+				 	font-style: normal;
+				}
+			}
+			span:first-child {
+				color: #333;
+			}
+			
+		}
+		>span:nth-of-type(1){
+			display: block;
+			margin: 10px 0;
+			color: #000;
+		}
+		>span {
+			font-size: 14px;
+			color: gray;
+		}
+	}
 }
 </style>

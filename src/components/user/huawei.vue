@@ -28,61 +28,60 @@
 		}
 	}
 </script>
-<style>
+<style lang="scss" scoped>
 	.huawei {
 		width: 1200px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-	}
-	.huawei .left {
-		width: 600px;
-		height: 450px;
-		background: RGB(52,187,223);
-		text-align: left;
-	}
-	.huawei .left .content {
-		width: 350px;
-		position: relative;
-		top: 80px;
-		left: 100px;
-		/*padding: 10px;*/
-	}
-	.huawei .left .content:hover {
-		cursor: pointer;
-	}
-	.huawei .left .content .phone {
-		position: relative;
-		top: -380px;
-		right: -250px;
-		float: right;
-		transition: margin 0.5s;
-	}
-	.huawei .left .content:hover .phone {
-		margin-top: -30px;
-	}
-	.huawei .left .content>span {
-		display: block;
-		margin-top: 30px;
-	}
-	.huawei .left .content .toKown {
-		margin-top: 70px;
-	}
-	.huawei .left .content .toKown .turn {
-		transform: rotate(180deg);
-		transition: margin 0.5s;
-	}
-	.huawei .left .content:hover .toKown .turn {
-		margin-left: 20px;
-	}
-	.huawei .left .content .smallFont {
-		display: block;
-		margin-top: 70px;
-	}
-	.huawei .right {
-		width: 450px;
-		height: 500px;
-		background: #fff;
+		.left {
+			width: 600px;
+			height: 450px;
+			background: RGB(52,187,223);
+			text-align: left;
+			.content {
+				width: 350px;
+				position: relative;
+				top: 80px;
+				left: 100px;
+				.phone {
+					position: relative;
+					top: -380px;
+					right: -250px;
+					float: right;
+					transition: margin 0.5s;
+				}
+				>span {
+					display: block;
+					margin-top: 30px;
+				}
+				.toKown {
+					margin-top: 70px;
+					.turn {
+						transform: rotate(180deg);
+						transition: margin 0.5s;
+					}
+				}
+				.smallFont {
+					display: block;
+					margin-top: 70px;
+				}
+			}
+			.content:hover {
+				cursor: pointer;
+				.phone {
+					margin-top: -30px;
+				}
+				.toKown .turn {
+					margin-left: 20px;
+				}
+			}
+		}
+		.right {
+			width: 450px;
+			height: 500px;
+			background: #fff;
+		}
 	}
 </style>

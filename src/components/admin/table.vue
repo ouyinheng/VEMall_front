@@ -32,13 +32,13 @@
 	          		请添加图片
 	          	</div>
 	          	<img v-for="(item,index) in props.row.slideshow" v-lazy="base+'/queryImages?img=slideshow/'+item.url" class="image" style="display:inline-block;width:400px;"  @click="getId(props.row.id)">
-	          	<el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+	          	<el-dialog title="替换轮播图" :visible.sync="dialogTableVisible">
 				  	<el-upload
                       :action="base+'/admin/savefile/?slideshow'"
                       list-type="picture-card"
                       :file-list="fileList"
                       :limit='1'
-                      :onSuccess="uploadSuccess"
+                      :onSuccess="uploadSuccess1"
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove">
                       <i class="el-icon-plus"></i>
@@ -148,7 +148,7 @@
 				this.dialogTableVisible = true
 				console.log(id)
 			},
-			uploadSuccess(response, file, fileList) {
+			uploadSuccess1(response, file, fileList) {
 				let url = response.data;
 				let id = this.nowid;
 				const _this = this;
@@ -157,7 +157,10 @@
 					_this.fileList = [];
 					_this.dialogTableVisible = false;
 					this.$emit('updateList');
-				}).catch()
+				}).catch(error=>{
+					_this.dialogTableVisible = false;
+					_this.fileList = [];
+				})
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);

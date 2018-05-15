@@ -45,7 +45,7 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .UserDetails {
 	width: 1000px;
 	margin: 0px 0 0 20px;
@@ -54,34 +54,33 @@
 	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
-}
-.UserDetails .title {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	font-size: 20px;
-	border-bottom: 1px solid #dcdcdc;
-	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
-	border-color: rgba(0,0,0,.14);
-	text-align: left;
-	padding-left: 20px;
-}
-.UserDetails .flexT {
-	width: 100%;
-	padding: 20px;
-}
-.UserDetails .flexT>div{
-	width: 100%;
-	padding: 10px 0;
-	border-bottom: 1px solid #dadada;
-	text-align: left;
-	display: flex;
-	flex-direction: row;
-
-}
-.UserDetails .flexT img{
-	height: 100px;
-	border-radius: 10px;
-	margin-right: 40px;
+	.title {
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		font-size: 20px;
+		border-bottom: 1px solid #dcdcdc;
+		box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
+		border-color: rgba(0,0,0,.14);
+		text-align: left;
+		padding-left: 20px;
+	}
+	.flexT {
+		width: 100%;
+		padding: 20px;
+		>div{
+			width: 100%;
+			padding: 10px 0;
+			border-bottom: 1px solid #dadada;
+			text-align: left;
+			display: flex;
+			flex-direction: row;
+		}
+		img{
+			height: 100px;
+			border-radius: 10px;
+			margin-right: 40px;
+		}
+	}
 }
 </style>

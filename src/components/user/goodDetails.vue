@@ -96,24 +96,52 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .goodDetails {
 	width: 90%;
 	min-width: 1200px;
-	/*max-width: 1300px;*/
 	margin: 10px auto;
 	background: #fff;
 	display: flex;
 	flex-direction: row;
 	padding: 10px 0 100px;
 	border-radius: 10px;
-}
-.goodDetails .back:hover {
-	color: lightblue;
-	cursor: pointer;
-}
-.goodDetails .left {
-	width: 45%;
+	.back:hover {
+		color: lightblue;
+		cursor: pointer;
+	}
+	.left {
+		width: 45%;
+		.midImg {
+			display: block;
+			width: 428px;
+			margin: 0 auto;
+			padding: 2px;
+		}
+		.minImg {
+			width: 428px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+	.right {
+		width: 55%;
+		.title {
+			margin-top: 50px;
+			text-align: left;
+			.el-button {
+				margin-top: 120px;
+			}
+		}
+	}
+	.details {
+		display: block;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
 }
 #maxImg {
 	display: block;
@@ -122,49 +150,20 @@
 	top: -700px;
 	left: 600px;
 }
-.goodDetails .left .midImg {
-	display: block;
-	width: 428px;
-	margin: 0 auto;
-	padding: 2px;
-}
-.goodDetails .left .minImg {
-	width: 428px;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
 .imgBorder {
 	border: 1px solid red;
 	border-radius: 5px;
-}
-.goodDetails .right {
-	width: 55%;
-}	
-.goodDetails .right .title {
-	margin-top: 50px;
-	text-align: left;
-}
-.goodDetails .right .title .el-button {
-	margin-top: 120px;
-}
-.goodDetails .details {
-	display: block;
-	width: 100%;
-	padding: 0;
-	margin: 0;
 }
 .details p{
 	display: block;
 	width: 100%;
 	padding: 0;
 	margin: 0;
-}
-.details p img {
-	display: block;
-	width: 100%;
-	padding: 0;
-	margin: 0;
+	img {
+		display: block;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
 }
 </style>

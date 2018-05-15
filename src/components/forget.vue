@@ -15,7 +15,7 @@
 				</h3>
 			</div>
 			<div class="content">
-				<span>输入VEmall账号</span>
+				<span>输入VEmall邮箱</span>
 				<el-input v-model="input" placeholder="请输入邮件地址"></el-input>
 				<div id="captcha">
 	              <el-button :loading="true" id="wait" class="show" v-show="isShow">正在加载验证码......</el-button>
@@ -36,8 +36,6 @@
 			return {
 				base:base,
 				mail: 'ouyinheng@163.com',
-				// mail:'li_jkang@yeah.net'
-				// mail:'851034271@qq.com'
 				input:'',
 				isShow:true,//
 				disabled:true
@@ -71,7 +69,7 @@
 		    },
 			forgetPwd(){
 				const _this = this;
-				forgetPwd({param:_this.mail}).then(data=>{
+				forgetPwd({param:_this.input}).then(data=>{
 					console.log(data);
 				}).catch();
 			}
@@ -79,7 +77,7 @@
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .outcolor {
 	width: 100%;
 	position: absolute;
@@ -88,70 +86,70 @@
 	left: 0;
 	right: 0;
 	background: RGB(241,241,241);
-}
-.outcolor .header {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	background: RGB(51,51,51);
-}
-.outcolor .header img {
-	margin-top: 5px;
-}
-.outcolor .header span {
-	display: block;
-	width: 150px;
-	height: 20px;
-	line-height: 20px;
-	color: #fff;
-	font-size: 20px;
-	padding: 0 20px;
-	border-left: 2px solid #cccccc;
-	margin-top: 20px;
+	.header {
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		background: RGB(51,51,51);
+		img {
+			margin-top: 5px;
+		}
+		span {
+			display: block;
+			width: 150px;
+			height: 20px;
+			line-height: 20px;
+			color: #fff;
+			font-size: 20px;
+			padding: 0 20px;
+			border-left: 2px solid #cccccc;
+			margin-top: 20px;
+		}
+	}
 }
 .forget {
 	width: 800px;
 	background: #FFF;
 	margin: 60px auto 0;
-}
-.forget h3 span {
-	display: block;
-	color: #333;
-	font-size: 24px;
-	font-weight: 600px;
-}
-.forget .h {
-	padding: 20px 0;
-	text-align: center;
-	border-bottom: 2px solid #f7f7f7;
-	margin: 0 30px 10px;
-}
-.forget .content {
-	width: 60%;
-	margin: 0 auto;
-	text-align: left;
-	padding: 10px;
-}
-.forget .content span {
-	display: block;
-	margin: 20px 0;
-	color: #333333;
-	font-weight: normal;
-	font-style: normal;
-}
-.forget .content .el-input {
-	display: block;
-	width: 400px;
-	height: 50px;
-	line-height: 50px;
-	margin: 0px 0 20px;
-}
-.forget .content .el-button {
-	width: 150px;
-	height: 45px;
-	display: block;
-	align-items: center;
-	margin: 80px auto 20px;
-	border-radius: 10px;
+	h3 span {
+		display: block;
+		color: #333;
+		font-size: 24px;
+		font-weight: 600px;
+	}
+	.h {
+		padding: 20px 0;
+		text-align: center;
+		border-bottom: 2px solid #f7f7f7;
+		margin: 0 30px 10px;
+	}
+	.content {
+		width: 60%;
+		margin: 0 auto;
+		text-align: left;
+		padding: 10px;
+		span {
+			display: block;
+			margin: 20px 0;
+			color: #333333;
+			font-weight: normal;
+			font-style: normal;
+		}
+		.el-input {
+			display: block;
+			width: 400px;
+			height: 50px;
+			line-height: 50px;
+			margin: 0px 0 20px;
+		}
+		.el-button {
+			width: 150px;
+			height: 45px;
+			display: block;
+			align-items: center;
+			margin: 80px auto 20px;
+			border-radius: 10px;
+		}
+	}
 }
 </style>

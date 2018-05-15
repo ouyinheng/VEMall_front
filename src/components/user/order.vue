@@ -246,103 +246,100 @@
 	}
 </script>
 
-<style>
-.orderGoodsList {
-	width: 70%;
-	min-width: 1200px;
-	margin: 30px auto;
-	height: 100%;
-	text-align: left;
-	background: #fff;
-	border: 1px solid #dcdcdc;
-	border-radius: 8px;
-	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
-	border-color: rgba(0,0,0,.14);
-	/*overflow-y: auto;*/
-	overflow-x: hidden;
-}
-.orderGoodsList>span {
-	display: block;
-	margin: 10px;
-	cursor: pointer;
-}
-.orderGoodsList .site {
-	width: 100%;
-	text-align: left;
-	box-sizing: border-box;
-	padding: 20px 20px;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.orderGoodsList .site .twoSite {
-	border: 1px solid skyblue;
-}
-.orderGoodsList .site .status {
-	position: relative;
-	top: -120px;
-	right: -240px;
-	color: lightgreen;
-	font-size: 30px;
-}
-.orderGoodsList .site>div{
-	width: 300px;
-	height: 150px;
-	/*border: 1px solid lightgreen;*/
-	border: 1px solid #e5e5e5;
-	border-radius: 4px;
-}
-.orderGoodsList .site>span {
-	font-size: 26px;
-}
-.orderGoodsList .title {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	font-size: 20px;
-	border-bottom: 1px solid #d4d4d4;
-	border-radius: 8px 8px 0 0;
-	box-shadow: 0 1px 7px rgba(0,0,0,.06);
-	background: linear-gradient(#fbfbfb,#ececec);
-	/*border-color: rgba(0,0,0,.14);*/
-	text-align: left;
-	padding-left: 20px;
-}
-.order .operate {
-	width: 100%;
-	height: 80px;
-	background: linear-gradient(#fdfdfd,#f9f9f9);
-	border-top: 1px solid #e9e9e9;
-	box-shadow: 0 -3px 8px rgba(0,0,0,.04);
-	z-index: 1;
-}
-.order .operate>.del {
-	text-align: left;
-}
-.order .operate>.buy {
-	width: 40%;
-	height: 60px;
-	/*line-height: 60px;*/
-	padding: 10px 20px;
-	text-align: left;
-	float: right;
-	display: flex;;
-	flex-direction: row;
-	justify-content: space-around;
-}
-.order .operate>.buy .goods {
-	box-sizing: border-box;
-	height: 60px;
-	/*line-height: 60px;*/
-	display: flex;
-	flex-direction: column;
-	padding: 10px 20px;
-}
-.order .operate>.buy .price {
-	box-sizing: border-box;
-	height: 60px;
-	/*line-height: 60px;*/
-	padding: 10px 20px;
-	border-left: 1px solid #e1e1e1;
+<style lang='scss' scoped>
+.order {
+	.orderGoodsList {
+		width: 70%;
+		min-width: 1200px;
+		margin: 30px auto;
+		height: 100%;
+		text-align: left;
+		background: #fff;
+		border: 1px solid #dcdcdc;
+		border-radius: 8px;
+		box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
+		border-color: rgba(0,0,0,.14);
+		/*overflow-y: auto;*/
+		overflow-x: hidden;
+		>span {
+			display: block;
+			margin: 10px;
+			cursor: pointer;
+		}
+		.site {
+			width: 100%;
+			text-align: left;
+			box-sizing: border-box;
+			padding: 20px 20px;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			.twoSite {
+				border: 1px solid skyblue;
+			}
+			.status {
+				position: relative;
+				top: -120px;
+				right: -240px;
+				color: lightgreen;
+				font-size: 30px;
+			}
+			>div{
+				width: 300px;
+				height: 150px;
+				border: 1px solid #e5e5e5;
+				border-radius: 4px;
+			}
+			>span {
+				font-size: 26px;
+			}
+		}
+		.title {
+			width: 100%;
+			height: 60px;
+			line-height: 60px;
+			font-size: 20px;
+			border-bottom: 1px solid #d4d4d4;
+			border-radius: 8px 8px 0 0;
+			box-shadow: 0 1px 7px rgba(0,0,0,.06);
+			background: linear-gradient(#fbfbfb,#ececec);
+			text-align: left;
+			padding-left: 20px;
+		}
+	}
+	.operate {
+		width: 100%;
+		height: 80px;
+		background: linear-gradient(#fdfdfd,#f9f9f9);
+		border-top: 1px solid #e9e9e9;
+		box-shadow: 0 -3px 8px rgba(0,0,0,.04);
+		z-index: 1;
+		>.del {
+			text-align: left;
+		}
+		>.buy {
+			width: 40%;
+			height: 60px;
+			padding: 10px 20px;
+			text-align: left;
+			float: right;
+			display: flex;;
+			flex-direction: row;
+			justify-content: space-around;
+			.goods {
+				box-sizing: border-box;
+				height: 60px;
+				display: flex;
+				flex-direction: column;
+				padding: 10px 20px;
+			}
+			.price {
+				box-sizing: border-box;
+				height: 60px;
+				padding: 10px 20px;
+				border-left: 1px solid #e1e1e1;
+			}
+		}
+	}
 }
 </style>

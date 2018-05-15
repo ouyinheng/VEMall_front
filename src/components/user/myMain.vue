@@ -90,7 +90,7 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .contain {
 	padding: 0;
 

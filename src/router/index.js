@@ -89,6 +89,10 @@ export default new Router({
       name: 'forget',
       component: resolve=> require(['@/components/forget'],resolve)
     },{
+      path: '/testtest',
+      name: 'testtest',
+      component: resolve=> require(['@/components/errorPage/test'],resolve)
+    },{
       path: '/404',
       name: 'error',
       component: resolve=> require(['@/components/errorPage/404'],resolve)
@@ -209,6 +213,13 @@ export default new Router({
           component: resolve=> require(['@/components/admin/income'],resolve),
           meta:{
             keepAlive:true
+          }
+        },{
+          path: '/syslog',
+          name: 'syslog',
+          component: resolve=> require(['@/components/admin/syslog'],resolve),
+          meta:{
+            keepAlive:false
           }
         }
       ]

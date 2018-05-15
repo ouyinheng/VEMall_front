@@ -67,7 +67,6 @@
                   </el-form-item>
                 </el-form>
             </el-card>
-
         </div>
     </div>
 </template>
@@ -136,7 +135,11 @@
                 this.ruleForm.displayImg = response.data;
             },
             submitForm(formName) {
+                // var loginParams = { username: _this.user.username, password: _this.user.password,place:_this.place};
                 var param = this.ruleForm;
+                param.user = sessionStorage.getItem('user');
+                param.place = sessionStorage.getItem('place');;
+                console.log(param);
                 const _this = this;
                 this.$refs[formName].validate((valid) => {
                   if (valid) {

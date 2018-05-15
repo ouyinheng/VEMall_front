@@ -80,7 +80,7 @@
 		    			}
 		    		}
 		    		editUserSite({id:_this.userInfo[index].id,status:1}).then(()=>{
-		    			_this.editUserInfo();
+		    			_this.getUserInfo();
 		    		}).catch();
 				}
 		    },
@@ -144,7 +144,7 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .mySite {
 	width: 1000px;
 	margin: 0px 0 0 20px;
@@ -153,50 +153,50 @@
 	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
+	>span {
+		display: block;
+		margin: 10px;
+		cursor: pointer;
+	}
+	.site {
+		width: 100%;
+		text-align: left;
+		box-sizing: border-box;
+		padding: 20px 20px;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		.twoSite {
+			border: 1px solid skyblue;
+		}
+		.status {
+			position: relative;
+			top: -120px;
+			right: -240px;
+			color: lightgreen;
+			font-size: 30px;
+		}
+		>div{
+			width: 300px;
+			height: 150px;
+			/*border: 1px solid lightgreen;*/
+			border: 1px solid #e5e5e5;
+			border-radius: 4px;
+		}
+		>span {
+			font-size: 26px;
+		}
+	}
+	.title {
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		font-size: 20px;
+		border-bottom: 1px solid #dcdcdc;
+		box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
+		border-color: rgba(0,0,0,.14);
+		text-align: left;
+		padding-left: 20px;
+	}	
 }
-.mySite>span {
-	display: block;
-	margin: 10px;
-	cursor: pointer;
-}
-.mySite .site {
-	width: 100%;
-	text-align: left;
-	box-sizing: border-box;
-	padding: 20px 20px;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.mySite .site .twoSite {
-	border: 1px solid skyblue;
-}
-.mySite .site .status {
-	position: relative;
-	top: -120px;
-	right: -240px;
-	color: lightgreen;
-	font-size: 30px;
-}
-.mySite .site>div{
-	width: 300px;
-	height: 150px;
-	/*border: 1px solid lightgreen;*/
-	border: 1px solid #e5e5e5;
-	border-radius: 4px;
-}
-.mySite .site>span {
-	font-size: 26px;
-}
-.mySite .title {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	font-size: 20px;
-	border-bottom: 1px solid #dcdcdc;
-	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
-	border-color: rgba(0,0,0,.14);
-	text-align: left;
-	padding-left: 20px;
-}	
 </style>

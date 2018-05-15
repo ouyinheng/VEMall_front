@@ -82,6 +82,7 @@
 		      	<span v-if="scope.row.orderStatus==1">支付审核中</span>
 		      	<span v-if="scope.row.orderStatus==2">正在送货</span>
 		      	<span v-if="scope.row.orderStatus==3">交易完成</span>
+		      	<span v-if="scope.row.orderStatus==10">超时取消</span>
 		      </template>
 		    </el-table-column>
 		  </el-table>

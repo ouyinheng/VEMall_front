@@ -131,7 +131,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .el-main {
 	margin-top: 60px;
 

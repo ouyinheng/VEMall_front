@@ -22,6 +22,7 @@
         <el-button :disabled="disabled" type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="logining">登录</el-button>
       </el-form-item>
     </el-form>
+    <div id="allmap"></div>
   </div>
 </template>
 
@@ -35,6 +36,7 @@ export default {
   name: 'Login',
   data() {
       return {
+        place:'null',
         logining: false,//登录加载
         isShow:true,//
         rules2: {
@@ -63,6 +65,7 @@ export default {
                 width: "300px"
             },_this.verify);
         }).catch();
+        this.init();
     },
     created:function(){
       history.pushState(null, null, location.href);
@@ -71,6 +74,20 @@ export default {
       ...mapState(['bool','user','disabled'])
     },
     methods: {
+      init(){
+        const _this = this;
+          var map = new BMap.Map("allmap");
+          var point = new BMap.Point(116.331398,39.897445);
+          map.centerAndZoom(point,12);
+          function myFun(result){
+              var cityName = result.name.replace('市', '');;
+              map.setCenter(cityName);
+              // alert("当前定位城市:"+cityName);
+              _this.place = cityName;
+          }
+          var myCity = new BMap.LocalCity();
+          myCity.get(myFun);
+      },
       //验证码
       verify(captchaObj) {
           var _this = this;
@@ -105,7 +122,7 @@ export default {
           this.$refs.user.validate((valid) => {
               if(valid){
                 this.user.password = this.getmd5(this.user.password);
-                var loginParams = { username: _this.user.username, password: _this.user.password};
+                var loginParams = { username: _this.user.username, password: _this.user.password,place:_this.place};
                 _this.logining = true;
                 _this.toAdminLogin(loginParams).then(data=>{
                   if(data){
@@ -115,6 +132,10 @@ export default {
                           type: 'success'
                       });
                       sessionStorage.setItem('user', JSON.stringify(_this.user));
+                      sessionStorage.setItem('place', _this.place);
+                      setTimeout(function(){
+                         _this.logining = false;
+                      },2000);
                       switch(_this.user.limit){
                         case 1:
                             this.$router.push({ path: '/admin' });

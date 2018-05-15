@@ -13,11 +13,12 @@ export default {
 </script>
 
 <style>
-/* #app {
+ #app {
+  width: 100%;
   min-width: 1200px;
   margin: 0 auto;
   font-family: "Helvetica Neue","PingFang SC",Arial,sans-serif;
-} */
+} 
 * {
   padding: 0;
   margin: 0;

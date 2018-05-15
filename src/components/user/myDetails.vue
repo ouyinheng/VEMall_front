@@ -55,36 +55,34 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .myDetails {
 	width: 100%;
 	margin: 50px 0;
 	background: #ededed;
-}
-.myDetails .main {
-	width: 70%;
-	min-width: 1200px;
-	margin: 0 auto;
-	/*border: 1px solid red;*/
-}
-.myDetails .main .left {
-	width: 20%;
-	background: pink;
-	float: left;
-}
-.myDetails .main .left .title {
-	display: block;
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	text-align: center;
-	background: RGB(202,20,29);
-	font-size: 20px;
-	color: #fff;
-}
-.myDetails .main .right {
-	width: 80%;
-	float: right;
-	/*background: lightblue;*/
+	.main {
+		width: 70%;
+		min-width: 1200px;
+		margin: 0 auto;
+		.left {
+			width: 20%;
+			background: pink;
+			float: left;
+			.title {
+				display: block;
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				text-align: center;
+				background: RGB(202,20,29);
+				font-size: 20px;
+				color: #fff;
+			}
+		}
+		.right {
+			width: 80%;
+			float: right;
+		}
+	}
 }
 </style>

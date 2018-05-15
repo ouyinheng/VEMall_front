@@ -73,7 +73,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .feature {
 	width: 1200px;
 	margin: 150px auto;

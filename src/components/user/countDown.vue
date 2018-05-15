@@ -33,7 +33,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.countDown .auth {
 		width: 100px;
 		align-items: center;

@@ -165,7 +165,7 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 	.headTop {
 		width: 80%;
 		height: 80px;
@@ -175,140 +175,98 @@
 		justify-content: space-between;
 		font-size: 20px;
 		background: RGB(3,3,3);
-	}
-	.headTop .left {
-		width: 55%;
-	}
-	.headTop .left .home {
-		cursor: pointer;
-		height: 80px;
-		line-height: 80px;
-	}
-	.headTop .left .home:hover {
-		color: skyblue;
-	}
-	.headTop .left span {
-		color: #fff;
-	}
-	.headTop .right {
-		width: 45%;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-	}
-	.headTop .right .allGoods {
-		display: block;
-		width: 80px;
-		height: 80px;
-		line-height: 80px;
-		font-size: 16px;
-		color: #fff;
-		cursor: pointer;
-		margin: 0 10px 0 10px;
-	}
-	.headTop .right>span,.headTop .right .cart {
-		height: 40px;
-		line-height: 40px;
-		margin-top: 20px;
-		font-size: 25px;
-		color: #fff;
-		padding: 0 10px;
-	}
-	.headTop .right>span:hover,.headTop .right .cart:hover {
-		cursor: pointer;
-	}
-	.headTop .right .cart>span {
-		font-size: 25px;
+		.left {
+			width: 55%;
+			.home {
+				cursor: pointer;
+				height: 80px;
+				line-height: 80px;
+			}
+			.home:hover {
+				color: skyblue;
+			}
+			span {
+				color: #fff;
+			}
+		}
+		.right {
+			width: 45%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			.allGoods {
+				display: block;
+				width: 80px;
+				height: 80px;
+				line-height: 80px;
+				font-size: 16px;
+				color: #fff;
+				cursor: pointer;
+				margin: 0 10px 0 10px;
+			}
+			>span,.cart {
+				height: 40px;
+				line-height: 40px;
+				margin-top: 20px;
+				font-size: 25px;
+				color: #fff;
+				padding: 0 10px;
+			}
+			>span:hover,.cart:hover {
+				cursor: pointer;
+			}
+			.cart>span {
+				font-size: 25px;
+			}
+			
+		}
 	}
 	.el-popover {
-		/*overflow-y: scroll;*/
+		min-height: 400px;
 		max-height: 410px;
 		margin-right: 20px;
-	}
-	.el-popover .goodsList {
-		width:400px;
-		padding: 0 10px;
-		overflow-x: hidden;
-		overflow-y: scroll;
-		max-height: 400px;
-	}
-	.el-popover .goodsList .left {
-		margin: 0 10px;
-		float: left;
-	}
-	.el-popover .goodsList .right {
-		overflow: hidden;
-		text-overflow:ellipsis;
-		white-space: nowrap;
-		text-align:right;
-	}
-	.el-popover .goodsList .el-checkbox {
-		width:100%;
-		margin-left: 0px;
-	}
-	.el-popover .accounts {
-		width: 400px;
-		height: 60px;
-		padding: 0 21px;
-		/*line-height: 60px;*/
-		background: RGB(240,240,240);
-		position: relative;
-		bottom: 0;
-		left: -20px;
-		z-index: 10;
-		font-size: 14px;
-	}
-	.el-popover .accounts .price {
-		margin: 10px 0 0 10px;
-		float: left;
-	}
-	.el-popover .accounts .el-button {
-		width: 150px;
-		margin-top: 10px;
-		float: right;
-	}
-
-	/*搜索框*/
-	.search {
-		width: 280px;
-		height: 36px;
-		line-height: 36px;
-		margin-top: 20px;
-		border: 1px solid gray;
-		border-radius: 20px;
-		background-color: #fff;
-		
-	}
-	.right .myinput {
-		display: block;
-		box-sizing: border-box;
-		width: 80%;
-		height: 36px;
-		line-height: 36px;
-		padding-left: 15px;
-		float: left;
-		border: none;
-		border-radius: 20px;
-		outline: none;
-		font-size: 14px;
-		/*background: rgba(255,255,255,0);*/
-		background-color: #fff;
-	}
-	.headTop .right .search span {
-		display: block;
-		width: 20px;
-		height: 30px;
-		line-height: 30px;
-		padding: 0 5px;
-		margin-top: 3px;
-		margin-right: 5px;
-		background: #fff;
-		font-size: 20px;
-		color: #000;
-		float: right;
-		border-radius: 50%;
-		text-align: center;
-		vertical-align:middle;
+		.goodsList {
+			width:400px;
+			min-height: 300px;
+			padding: 0 10px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			max-height: 400px;
+			.left {
+				margin: 0 10px;
+				float: left;
+			}
+			.right {
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+				text-align:right;
+			}
+			.el-checkbox {
+				width:100%;
+				margin-left: 0px;
+			}
+		}
+		.accounts {
+			width: 400px;
+			height: 60px;
+			padding: 0 21px;
+			background: RGB(240,240,240);
+			position: relative;
+			bottom: -20px;
+			left: -20px;
+			z-index: 10;
+			font-size: 14px;
+			.price {
+				margin: 10px 0 0 10px;
+				float: left;
+			}
+			.el-button {
+				width: 150px;
+				margin-top: 10px;
+				float: right;
+			}
+		}
 	}
 	.icon {
         width:40px;

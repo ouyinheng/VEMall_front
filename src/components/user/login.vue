@@ -110,6 +110,7 @@ export default {
                 // console.log(loginParams);
                 _this.toLogin(loginParams).then(data=>{
                   if(_this.bool){
+                      console.log(data);
                       _this.$notify({
                           title: '成功',
                           message: '登录成功！',

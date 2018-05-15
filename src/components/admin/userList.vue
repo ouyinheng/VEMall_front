@@ -91,7 +91,7 @@
               <el-form-item label="用户名">
                 <el-input v-model="form.username"></el-input>
               </el-form-item>
-             <el-form-item label="密码">
+             <el-form-item label="密码" v-show='false'>
                 <el-input v-model="form.password" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="账号状态">

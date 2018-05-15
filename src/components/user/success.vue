@@ -27,7 +27,7 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .success {
 	width: 70%;
 	min-width: 1200px;
@@ -41,32 +41,31 @@
 	border-color: rgba(0,0,0,.14);
 	/*overflow-y: auto;*/
 	overflow-x: hidden;
-}
-.success>span {
-	display: block;
-	margin: 10px;
-	cursor: pointer;
-}
-.success .title {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	font-size: 20px;
-	border-bottom: 1px solid #d4d4d4;
-	border-radius: 8px 8px 0 0;
-	box-shadow: 0 1px 7px rgba(0,0,0,.06);
-	background: linear-gradient(#fbfbfb,#ececec);
-	/*border-color: rgba(0,0,0,.14);*/
-	text-align: left;
-	padding-left: 20px;
-}
-.success .celebrate {
-	padding: 140px 10px 0;
-	margin-bottom: 200px;
-}
-.success .celebrate .content {
-	width: 50%;
-	margin: 0 auto;
-	text-align: center;
+	>span {
+		display: block;
+		margin: 10px;
+		cursor: pointer;
+	}
+	.title {
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		font-size: 20px;
+		border-bottom: 1px solid #d4d4d4;
+		border-radius: 8px 8px 0 0;
+		box-shadow: 0 1px 7px rgba(0,0,0,.06);
+		background: linear-gradient(#fbfbfb,#ececec);
+		text-align: left;
+		padding-left: 20px;
+	}
+	.celebrate {
+		padding: 140px 10px 0;
+		margin-bottom: 200px;
+		.content {
+			width: 50%;
+			margin: 0 auto;
+			text-align: center;
+		}
+	}
 }
 </style>

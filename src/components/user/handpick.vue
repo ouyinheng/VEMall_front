@@ -42,7 +42,7 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 .handpick {
 	width: 1200px;
 	margin: 150px auto;
@@ -51,35 +51,35 @@
 	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
 	border-color: rgba(0,0,0,.14);
 	overflow: hidden;
-}
-.handpick .title {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	font-size: 20px;
-	border-bottom: 1px solid #dcdcdc;
-	box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
-	border-color: rgba(0,0,0,.14);
-	text-align: left;
-	padding-left: 20px;
-}
-.handpick .flexT {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.handpick .flexT .handpickCard {
-	width: 280px;
-	height: 340px;
-	background: #fff;
-	margin: 10px;
-	transition: all .2s linear 0s;
-}
-.handpick .handpickCard:hover {
-	cursor: pointer;
-	box-shadow: 0 10px 15px rgba(0,0,0,0.07);
-	transform: translate3d(0px,-2px,0px);
-	z-index: 2;
+	.title {
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		font-size: 20px;
+		border-bottom: 1px solid #dcdcdc;
+		box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
+		border-color: rgba(0,0,0,.14);
+		text-align: left;
+		padding-left: 20px;
+	}
+	.flexT {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		.handpickCard {
+			width: 280px;
+			height: 340px;
+			background: #fff;
+			margin: 10px;
+			transition: all .2s linear 0s;
+		}
+		.handpickCard:hover {
+			cursor: pointer;
+			box-shadow: 0 10px 15px rgba(0,0,0,0.07);
+			transform: translate3d(0px,-2px,0px);
+			z-index: 2;
+		}
+	}
 }
 </style>

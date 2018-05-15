@@ -12,7 +12,7 @@
 		      <el-form-item prop="email">
 		        <el-input type="text" :disabled="emailDis" v-model="user.email" auto-complete="off" placeholder="邮箱账号"></el-input>
 		      </el-form-item>
-		      <el-form-item c
+
 		      <el-form-item class="userMail">
 		      	<el-input type="text" v-model="user.emailAuth" auto-complete="off" placeholder="邮箱验证码" @blur="regMail"></el-input>
 				<o_countDown class="userCountDown" @getAuthCode="getAuthCode"></o_countDown>
@@ -41,6 +41,38 @@
 	export default {
 		name: 'register',
 		data(){
+			var validateUserName = (rule, value, callback) => {
+				const _this = this;
+		        if (!value) {
+		        	_this.loginBool = true;
+		          	return callback(new Error('账号不能为空'));
+		        }
+		        setTimeout(() => {
+					var regex=/^[_A-Za-z]{5,10}[0-9A-Za-z]$/g
+					var a=regex.test(value);
+		          	if (!a) {
+		          		_this.loginBool = true;
+		            	callback(new Error('只能含有字母,下划线开头,可包含数字,最小6位数,最大11位数'));
+		          	} else {
+		          		_this.loginBool = false;
+		            	callback();
+		          	}
+		        }, 1000);
+		    };
+		    var validateEmail = (rule, value, callback) => {
+		    	const _this = this;
+		    	 if (!value) {
+		        	_this.loginBool = true;
+		          	return callback(new Error('邮箱不能为空'));
+		        }
+		    	setTimeout(()=>{
+		    		var regex = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/
+		    		var a = regex.test(value);
+		    		if(!a){
+		    			callback(new Error('邮箱格式错误'))
+		    		}
+		    	})
+		    };
 			return {
 				disabled:true,
 				logining:false,
@@ -51,17 +83,20 @@
 				user:{
 					username:'',
 					password:'',
-					email:'ouyinheng@163.com',
+					email:'',
 					emailAuth:''
 				},
 				rules2: {
 		          username: [
 		            { required: true, message: '请输入账号', trigger: 'blur' },
-		            //{ validator: validaePass }
+		            { validator: validateUserName , trigger: 'blur' }
 		          ],
 		          password: [
 		            { required: true, message: '请输入密码', trigger: 'blur' },
-		            //{ validator: validaePass2 }
+		            { validator: validateUserName , trigger: 'blur' }
+		          ],
+		          email: [
+		          	{ required:true, validator: validateEmail, trigger: 'blur' }
 		          ]
 		        },
 			}
@@ -151,36 +186,38 @@
 	}
 </script>
 
-<style>
+<style lang='scss' scoped>
 	.register {
 		width: 100%;
 		position: absolute;
 		top: 0;
 		bottom: 0;
 		left: 0;
-	}
-	.register .regCard {
-		box-shadow: 0 0px 8px 0 rgba(255, 255, 255, 0.06), 0 1px 0px 0 rgba(255, 255, 255, 0.02);
-	    -webkit-border-radius: 5px;
-	    border-radius: 5px;
-	    -moz-border-radius: 5px;
-	    background-clip: padding-box;
-	    margin: 5% auto;
-	    width: 400px;
-	    padding: 35px 35px 15px 35px;
-	    background: #fff;
-	    border: 1px solid #eaeaea;
-	    box-shadow: 0 0 25px #cac6c6;
-	}
-	.register .regCard .title {
-		margin: 10px 0 20px;
-		text-align: center;
-	}
-	.userMail .el-input{
-		width: 70%;
-		float: left;
-	}
-	.userMail .userCountDown {
-		float: right;
+		.regCard {
+			box-shadow: 0 0px 8px 0 rgba(255, 255, 255, 0.06), 0 1px 0px 0 rgba(255, 255, 255, 0.02);
+		    -webkit-border-radius: 5px;
+		    border-radius: 5px;
+		    -moz-border-radius: 5px;
+		    background-clip: padding-box;
+		    margin: 5% auto;
+		    width: 400px;
+		    padding: 35px 35px 15px 35px;
+		    background: #fff;
+		    border: 1px solid #eaeaea;
+		    box-shadow: 0 0 25px #cac6c6;
+		    .title {
+				margin: 10px 0 20px;
+				text-align: center;
+			}
+			.userMail {
+				.el-input{
+					width: 70%;
+					float: left;
+				}	
+				.userCountDown {
+					float: right;
+				}
+			}
+		}
 	}
 </style>
